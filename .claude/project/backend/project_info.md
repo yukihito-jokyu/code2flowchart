@@ -54,3 +54,8 @@ uv run uvicorn main:app --reload
 - React 開発サーバー (http://localhost:5173) からのアクセスを許可
 - 全メソッド、全ヘッダーを許可
 - 認証情報の送信を許可
+
+## Backend のドキュメント
+
+- database の setup について
+  - `.claude/project/backend/documents`
