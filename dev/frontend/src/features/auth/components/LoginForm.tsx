@@ -1,24 +1,23 @@
 import { useState } from 'react';
 
-import { useSignup } from '../hooks';
-import type { FormErrors, SignupFormData } from '../types';
-import { validateSignupForm } from '../utils';
-import styles from './SignupForm.module.css';
+import { useLogin } from '../hooks';
+import type { LoginFormData, LoginFormErrors } from '../types';
+import { validateLoginForm } from '../utils';
+import styles from './LoginForm.module.css';
 
-interface SignupFormProps {
+interface LoginFormProps {
   onSuccess?: () => void;
-  onLoginClick?: () => void;
+  onSignupClick?: () => void;
 }
 
-export const SignupForm = ({ onSuccess, onLoginClick }: SignupFormProps) => {
-  const [formData, setFormData] = useState<SignupFormData>({
+export const LoginForm = ({ onSuccess, onSignupClick }: LoginFormProps) => {
+  const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
-    confirmPassword: '',
   });
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [formErrors, setFormErrors] = useState<LoginFormErrors>({});
 
-  const { signup, isLoading, error } = useSignup();
+  const { login, isLoading, error } = useLogin();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,7 +26,7 @@ export const SignupForm = ({ onSuccess, onLoginClick }: SignupFormProps) => {
       [name]: value,
     }));
 
-    if (formErrors[name as keyof FormErrors]) {
+    if (formErrors[name as keyof LoginFormErrors]) {
       setFormErrors((prev) => ({
         ...prev,
         [name]: undefined,
@@ -38,13 +37,13 @@ export const SignupForm = ({ onSuccess, onLoginClick }: SignupFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const errors = validateSignupForm(formData);
+    const errors = validateLoginForm(formData);
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
 
-    const success = await signup(formData);
+    const success = await login(formData);
     if (success) {
       onSuccess?.();
     }
@@ -52,7 +51,7 @@ export const SignupForm = ({ onSuccess, onLoginClick }: SignupFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <h2 className={styles.title}>新規登録</h2>
+      <h2 className={styles.title}>ログイン</h2>
 
       <div className={styles.field}>
         <label htmlFor="email" className={styles.label}>
@@ -81,25 +80,9 @@ export const SignupForm = ({ onSuccess, onLoginClick }: SignupFormProps) => {
           value={formData.password}
           onChange={handleChange}
           className={styles.input}
-          placeholder="8文字以上で入力してください"
+          placeholder="パスワードを入力してください"
         />
         {formErrors.password && <p className={styles.error}>{formErrors.password}</p>}
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="confirmPassword" className={styles.label}>
-          パスワード確認
-        </label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          className={styles.input}
-          placeholder="パスワードを再入力してください"
-        />
-        {formErrors.confirmPassword && <p className={styles.error}>{formErrors.confirmPassword}</p>}
       </div>
 
       {error && (
@@ -110,18 +93,18 @@ export const SignupForm = ({ onSuccess, onLoginClick }: SignupFormProps) => {
 
       <div className={styles.submitField}>
         <button type="submit" disabled={isLoading} className={styles.button}>
-          {isLoading ? '登録中...' : '新規登録'}
+          {isLoading ? 'ログイン中...' : 'ログイン'}
         </button>
       </div>
 
-      {onLoginClick && (
+      {onSignupClick && (
         <div className={styles.linkField}>
           <div className={styles.divider}>
             <span className={styles.dividerText}>または</span>
           </div>
-          <p className={styles.linkText}>既にアカウントをお持ちの方はこちら</p>
-          <button type="button" onClick={onLoginClick} className={styles.navButton}>
-            ログイン
+          <p className={styles.linkText}>アカウントをお持ちでない方はこちら</p>
+          <button type="button" onClick={onSignupClick} className={styles.navButton}>
+            新規登録
           </button>
         </div>
       )}

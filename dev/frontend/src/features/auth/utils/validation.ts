@@ -1,4 +1,4 @@
-import type { FormErrors, SignupFormData } from '../types';
+import type { FormErrors, LoginFormData, LoginFormErrors, SignupFormData } from '../types';
 
 export const validateEmail = (email: string): string | undefined => {
   if (!email) {
@@ -45,6 +45,18 @@ export const validateSignupForm = (data: SignupFormData): FormErrors => {
 
   const confirmPasswordError = validateConfirmPassword(data.password, data.confirmPassword);
   if (confirmPasswordError) errors.confirmPassword = confirmPasswordError;
+
+  return errors;
+};
+
+export const validateLoginForm = (data: LoginFormData): LoginFormErrors => {
+  const errors: LoginFormErrors = {};
+
+  const emailError = validateEmail(data.email);
+  if (emailError) errors.email = emailError;
+
+  const passwordError = validatePassword(data.password);
+  if (passwordError) errors.password = passwordError;
 
   return errors;
 };
