@@ -5,6 +5,8 @@
 
 # プロジェクトドキュメントファイル
 
+- プロジェクトの概要
+  - `README.md`
 - backend プロジェクトの基本情報
   - `.claude/project/backend/project_info.md`
 - frontend プロジェクトの基本情報
