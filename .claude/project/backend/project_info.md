@@ -58,4 +58,6 @@ uv run uvicorn main:app --reload
 ## Backend のドキュメント
 
 - database の setup について
-  - `.claude/project/backend/documents`
+  - `.claude/project/backend/documents/database_setup.md`
+- データベーススキーマ設計について
+  - `.claude/project/backend/documents/database_schema.md`

@@ -17,7 +17,12 @@ Docker を使用した MySQL データベース環境のセットアップにつ
 ```
 dev/database/
 ├── docker-compose.yml  # MySQL コンテナ設定
-└── init.sql           # データベース初期化スクリプト
+├── init.sql           # データベース初期化スクリプト
+└── sql/               # 個別テーブル作成SQLファイル
+    ├── create_users_table.sql
+    ├── create_codes_table.sql
+    ├── create_nodes_table.sql
+    └── create_edges_table.sql
 ```
 
 ## セットアップ手順
