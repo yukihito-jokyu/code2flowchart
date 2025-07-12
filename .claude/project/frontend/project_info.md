@@ -62,6 +62,13 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 - **index.html**: Vite + React + TS のテンプレート
 - **main.tsx**: React StrictMode でアプリケーション起動
 
+## ドキュメント
+
+### 認証機能
+- **Auth Feature**: `.claude/project/frontend/documents/auth_feature.md`
+- **Signup Page**: `.claude/project/frontend/documents/signup_page.md`
+- **Auth Routing**: `.claude/project/frontend/documents/auth_routing.md`
+
 ## 開発コマンド
 
 ```bash

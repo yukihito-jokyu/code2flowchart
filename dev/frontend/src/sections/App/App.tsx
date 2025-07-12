@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import styles from './App.module.css';
 
 function App() {
   const [message, setMessage] = useState<string>('');
@@ -17,9 +20,16 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <h1>FastAPIからのメッセージ:</h1>
-      <p>{message}</p>
+    <div className={styles.container}>
+      <h1 className={styles.title}>FastAPIからのメッセージ:</h1>
+      <p className={styles.message}>{message}</p>
+      
+      <div className={styles.linkSection}>
+        <h2 className={styles.sectionTitle}>リンク:</h2>
+        <Link to="/signup" className={styles.link}>
+          新規登録
+        </Link>
+      </div>
     </div>
   );
 }
