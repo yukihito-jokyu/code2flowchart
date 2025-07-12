@@ -67,7 +67,10 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 ### 認証機能
 - **Auth Feature**: `.claude/project/frontend/documents/auth_feature.md`
 - **Signup Page**: `.claude/project/frontend/documents/signup_page.md`
+- **Login Page**: `.claude/project/frontend/documents/login_page.md`
 - **Auth Routing**: `.claude/project/frontend/documents/auth_routing.md`
+- **Auth Navigation**: `.claude/project/frontend/documents/auth_navigation.md`
+- **Login API**: `.claude/project/frontend/documents/api/login_api.md`
 
 ## 開発コマンド
 

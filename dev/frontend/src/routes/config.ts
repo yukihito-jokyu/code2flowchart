@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import { LoginPage } from '@/pages/login';
 import { SignupPage } from '@/pages/signup';
-import App from '@/sections/App/App';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    Component: App,
+    path: '/login',
+    Component: LoginPage,
   },
   {
     path: '/signup',
