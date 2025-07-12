@@ -8,6 +8,7 @@ Issue #$ARGUMENT の内容を確認して作業着手してください。
 - frontend のタスクの場合、ドキュメント作成タスクは`.claude/commands/tasks/make-frontend-documents.md`を参照してください。
 - backend のタスクの場合、ドキュメント作成タスクは`.claude/commands/tasks/make-backend-documents.md`を参照してください。
 - 作成したドキュメントは`.claude/project/*/project_info.md`にドキュメントのタイトルとドキュメントまでの Path を追記してください。
+- タスクが 3 回連続で失敗した場合、失敗した旨をユーザーに伝え、支持を仰いでください。
 
 ## 作業手順
 
