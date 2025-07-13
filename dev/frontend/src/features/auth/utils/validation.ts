@@ -23,7 +23,7 @@ export const validatePassword = (password: string): string | undefined => {
 
 export const validateConfirmPassword = (
   password: string,
-  confirmPassword: string,
+  confirmPassword: string
 ): string | undefined => {
   if (!confirmPassword) {
     return 'パスワード確認は必須です';
