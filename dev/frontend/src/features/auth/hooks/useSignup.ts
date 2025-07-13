@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { authApi } from '../api';
+
 import type { AuthError, SignupFormData, SignupRequest } from '../types';
 
 interface UseSignupReturn {
@@ -29,6 +30,10 @@ export const useSignup = (): UseSignupReturn => {
       };
 
       await authApi.signup(signupData);
+
+      // 新規登録成功時は自動的にはログインしない
+      // ユーザーに登録完了メッセージを表示して、ログインページに遷移させる
+
       setIsLoading(false);
       return true;
     } catch (err) {

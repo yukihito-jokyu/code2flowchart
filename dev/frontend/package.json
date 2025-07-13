@@ -8,18 +8,20 @@
     "build": "tsc -b && vite build",
     "lint-check": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
-    "lint-check-staged": "eslint $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/react_app/::')",
-    "lint-fix-staged": "eslint --fix $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/react_app/::')",
+    "lint-check-staged": "eslint $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
+    "lint-fix-staged": "eslint --fix $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
     "format-write": "prettier --write \"**/*.{ts,tsx}\"",
     "format-check": "prettier --check \"**/*.{ts,tsx}\"",
-    "format-check-staged": "prettier --check $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/react_app/::')",
-    "format-write-staged": "prettier --write $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/react_app/::')",
+    "format-check-staged": "prettier --check $(git diff --cached --name-only --diff-filter=ACM  | sed 's:^dev/frontend/::')",
+    "format-write-staged": "prettier --write $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.3"
   },
   "devDependencies": {

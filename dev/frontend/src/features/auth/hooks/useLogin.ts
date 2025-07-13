@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
+import { useAppDispatch } from '../../../hooks/redux';
+import { loginStart, loginSuccess, loginFailure } from '../../../stores';
 import { authApi } from '../api';
+
 import type { AuthError, LoginFormData, LoginRequest } from '../types';
 
 interface UseLoginReturn {
@@ -12,10 +15,12 @@ interface UseLoginReturn {
 export const useLogin = (): UseLoginReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<AuthError | null>(null);
+  const dispatch = useAppDispatch();
 
   const login = async (data: LoginFormData): Promise<boolean> => {
     setIsLoading(true);
     setError(null);
+    dispatch(loginStart());
 
     try {
       const loginData: LoginRequest = {
@@ -24,17 +29,22 @@ export const useLogin = (): UseLoginReturn => {
       };
 
       const response = await authApi.login(loginData);
-      
-      // ローカルストレージにトークンを保存
+
+      // Reduxストアにログイン状態を保存
       if (response.token) {
-        localStorage.setItem('authToken', response.token);
-        localStorage.setItem('userEmail', response.email);
+        dispatch(
+          loginSuccess({
+            user: { id: response.id, email: response.email },
+            token: response.token,
+          })
+        );
       }
 
       setIsLoading(false);
       return true;
     } catch (err) {
       setIsLoading(false);
+      dispatch(loginFailure());
       if (err instanceof Error) {
         setError({ message: err.message });
       } else {

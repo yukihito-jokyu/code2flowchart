@@ -1,6 +1,6 @@
 export { authApi } from './api';
 export { LoginForm, SignupForm } from './components';
-export { useLogin, useSignup } from './hooks';
+export { useAuth, useLogin, useSignup, useLogout } from './hooks';
 export type {
   AuthError,
   FormErrors,
@@ -8,6 +8,7 @@ export type {
   LoginFormErrors,
   LoginRequest,
   LoginResponse,
+  LogoutResponse,
   SignupFormData,
   SignupRequest,
   SignupResponse,
