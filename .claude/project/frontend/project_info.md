@@ -91,6 +91,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/component/modal_system.md`
 - Card Component
   - `.claude/project/frontend/documents/component/card_component.md`
+- Custom Node Components
+  - `.claude/project/frontend/documents/component/custom_node_components.md`
 
 ### ページ
 

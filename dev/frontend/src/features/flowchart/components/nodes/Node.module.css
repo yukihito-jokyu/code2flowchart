@@ -1,0 +1,201 @@
+/* IF Node */
+.ifNode {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #4c63d2;
+  border-radius: 0;
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.ifNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.ifNode:hover {
+  transform: rotate(45deg) scale(1.05);
+}
+
+.ifNodeContent {
+  transform: rotate(-45deg);
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* FOR Node */
+.forNode {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: 2px solid #e91e63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+.forNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.forNode:hover {
+  transform: scale(1.05);
+}
+
+.forNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+}
+
+/* WHILE Node */
+.whileNode {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: 2px solid #00bcd4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.whileNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.whileNode:hover {
+  transform: scale(1.05);
+}
+
+.whileNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* UNKNOWN Node */
+.unknownNode {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+  border: 2px solid #ff9800;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.unknownNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.unknownNode:hover {
+  transform: scale(1.05);
+  animation: none;
+}
+
+.unknownNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* NORMAL Node */
+.normalNode {
+  width: 120px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 2px solid #4c63d2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.normalNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.normalNode:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.normalNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+}
+
+/* Common node content styles */
+.nodeIcon {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.nodeLabel {
+  font-size: 10px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 80px;
+}
+
+.forNodeContent .nodeLabel,
+.whileNodeContent .nodeLabel,
+.unknownNodeContent .nodeLabel {
+  max-width: 70px;
+}
+
+.normalNodeContent .nodeLabel {
+  font-size: 11px;
+  max-width: 90px;
+}
+
+.nodeType {
+  font-size: 8px;
+  opacity: 0.8;
+}

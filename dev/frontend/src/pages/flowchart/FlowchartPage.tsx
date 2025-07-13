@@ -88,10 +88,11 @@ const FlowchartPageContent = ({
     };
 
     const labelMap = {
-      start: '開始',
-      process: '処理',
-      decision: '判定',
-      end: '終了',
+      if: 'IF文',
+      for: 'FOR文',
+      while: 'WHILE文',
+      unknown: '不明な関数',
+      normal: '通常処理',
     };
 
     addNode(type, labelMap[type], position);
@@ -112,7 +113,7 @@ const FlowchartPageContent = ({
     }
   };
 
-  const handleNodeClick = (event: React.MouseEvent, node: Node) => {
+  const handleNodeClick = (_event: React.MouseEvent, node: Node) => {
     setSelectedNodeId(node.id);
   };
 

@@ -14,13 +14,14 @@ export const NodeToolbar = ({
   isLoading = false,
 }: NodeToolbarProps) => {
   const nodeTypes: { type: FlowchartNodeType; label: string; icon: string }[] = [
-    { type: 'start', label: '開始', icon: '⭕' },
-    { type: 'process', label: '処理', icon: '⬜' },
-    { type: 'decision', label: '分岐', icon: '♦️' },
-    { type: 'end', label: '終了', icon: '⏹️' },
+    { type: 'if', label: 'IF文', icon: '💎' },
+    { type: 'for', label: 'FOR文', icon: '🔄' },
+    { type: 'while', label: 'WHILE文', icon: '⭕' },
+    { type: 'unknown', label: '不明', icon: '⚠️' },
+    { type: 'normal', label: '通常', icon: '📋' },
   ];
 
-  const baseButtonStyle = {
+  const baseButtonStyle: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
@@ -36,14 +37,14 @@ export const NodeToolbar = ({
     position: 'relative',
   };
 
-  const nodeButtonStyle = {
+  const nodeButtonStyle: React.CSSProperties = {
     ...baseButtonStyle,
     background:
       'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
     color: 'rgba(255, 255, 255, 0.9)',
   };
 
-  const saveButtonStyle = {
+  const saveButtonStyle: React.CSSProperties = {
     ...baseButtonStyle,
     background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
     borderColor: 'rgba(59, 130, 246, 0.5)',
@@ -52,7 +53,7 @@ export const NodeToolbar = ({
     cursor: isLoading ? 'not-allowed' : 'pointer',
   };
 
-  const clearButtonStyle = {
+  const clearButtonStyle: React.CSSProperties = {
     ...baseButtonStyle,
     background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
     borderColor: 'rgba(239, 68, 68, 0.5)',

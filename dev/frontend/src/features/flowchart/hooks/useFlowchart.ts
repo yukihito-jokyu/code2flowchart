@@ -27,9 +27,9 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      const updatedNodes = applyNodeChanges(changes, nodes) as FlowchartNode[];
+      const updatedNodes = applyNodeChanges(changes, nodes as Node[]) as FlowchartNode[];
       setNodesState(updatedNodes);
-      setNodes(updatedNodes);
+      setNodes(updatedNodes as Node[]);
     },
     [nodes, setNodes]
   );
@@ -56,7 +56,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
     (type: FlowchartNodeType, label: string, position: { x: number; y: number }) => {
       const newNode: FlowchartNode = {
         id: `${type}-${Date.now()}`,
-        type: 'default',
+        type,
         position,
         data: {
           label,
@@ -66,7 +66,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
       const updatedNodes = [...nodes, newNode];
       setNodesState(updatedNodes);
-      setNodes(updatedNodes);
+      setNodes(updatedNodes as Node[]);
       return newNode.id;
     },
     [nodes, setNodes]
@@ -86,7 +86,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
           : node
       );
       setNodesState(updatedNodes);
-      setNodes(updatedNodes);
+      setNodes(updatedNodes as Node[]);
     },
     [nodes, setNodes]
   );
@@ -98,7 +98,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
       setNodesState(updatedNodes);
       setEdgesState(updatedEdges);
-      setNodes(updatedNodes);
+      setNodes(updatedNodes as Node[]);
       setEdges(updatedEdges);
 
       if (selectedNodeId === nodeId) {
@@ -153,7 +153,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
         const flowchartData: FlowchartData = JSON.parse(saved);
         setNodesState(flowchartData.nodes);
         setEdgesState(flowchartData.edges);
-        setNodes(flowchartData.nodes);
+        setNodes(flowchartData.nodes as Node[]);
         setEdges(flowchartData.edges);
       }
 
