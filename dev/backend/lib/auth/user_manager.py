@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from models.user import User
-from auth.utils import get_password_hash, verify_password
+from lib.auth.utils import get_password_hash, verify_password
 from typing import Optional
 
 
@@ -41,7 +41,7 @@ class UserManager:
         """メールアドレスでユーザーを取得"""
         query = self.db.query(User).filter(User.email == email)
         if not include_deleted:
-            query = query.filter(User.is_deleted is False)
+            query = query.filter(User.is_deleted == include_deleted)
         return query.first()
 
     def get_user_by_uuid(
@@ -50,7 +50,7 @@ class UserManager:
         """UUIDでユーザーを取得"""
         query = self.db.query(User).filter(User.uuid == uuid)
         if not include_deleted:
-            query = query.filter(User.is_deleted is False)
+            query = query.filter(User.is_deleted == include_deleted)
         return query.first()
 
     def authenticate_user(self, email: str, password: str) -> Optional[User]:

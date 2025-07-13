@@ -1,8 +1,8 @@
 from fastapi import HTTPException, Depends, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
-from auth.utils import verify_token
-from auth.user_manager import UserManager
+from lib.auth.utils import verify_token
+from lib.auth.user_manager import UserManager
 from utils.database import get_db
 from models.user import User
 from typing import Optional
