@@ -169,6 +169,13 @@ export const ProjectsPage = () => {
                 <div className={styles.projectActions}>
                   {activeTab === 'active' ? (
                     <>
+                      <Link
+                        to={`/flowchart/${project.uuid}`}
+                        className={`${styles.actionButton} ${styles.flowchartButton}`}
+                        title="フローチャート"
+                      >
+                        📊
+                      </Link>
                       <button
                         className={`${styles.actionButton} ${styles.editButton}`}
                         onClick={() => handleEditProject(project)}
