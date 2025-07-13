@@ -12,6 +12,8 @@ import '@xyflow/react/dist/style.css';
 
 import { FlowchartNode, FlowchartEdge } from '../types';
 
+import { IfNode, ForNode, WhileNode, UnknownNode, NormalNode } from './nodes';
+
 interface FlowchartCanvasProps {
   nodes: FlowchartNode[];
   edges: FlowchartEdge[];
@@ -22,6 +24,14 @@ interface FlowchartCanvasProps {
   onPaneClick?: (event: React.MouseEvent) => void;
   className?: string;
 }
+
+const nodeTypes = {
+  if: IfNode,
+  for: ForNode,
+  while: WhileNode,
+  unknown: UnknownNode,
+  normal: NormalNode,
+};
 
 export const FlowchartCanvas = ({
   nodes,
@@ -36,8 +46,9 @@ export const FlowchartCanvas = ({
   return (
     <div className={className} style={{ width: '100%', height: '100%' }}>
       <ReactFlow
-        nodes={nodes}
+        nodes={nodes as Node[]}
         edges={edges}
+        nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
