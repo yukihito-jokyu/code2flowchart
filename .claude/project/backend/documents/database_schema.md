@@ -29,10 +29,12 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_username (username),
-    INDEX idx_email (email)
+    INDEX idx_email (email),
+    INDEX idx_is_deleted (is_deleted)
 );
 ```
 
@@ -42,6 +44,7 @@ CREATE TABLE users (
 - `username`: ユーザー名（ユニーク制約）
 - `email`: メールアドレス（ユニーク制約）
 - `password_hash`: パスワードのハッシュ値
+- `is_deleted`: 論理削除フラグ（デフォルト: FALSE）
 - `created_at`: アカウント作成日時
 - `updated_at`: 最終更新日時
 
@@ -55,11 +58,13 @@ CREATE TABLE projects (
     user_uuid CHAR(36) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_uuid) REFERENCES users(uuid) ON DELETE CASCADE,
     INDEX idx_user_uuid (user_uuid),
-    INDEX idx_created_at (created_at)
+    INDEX idx_created_at (created_at),
+    INDEX idx_is_deleted (is_deleted)
 );
 ```
 
@@ -69,6 +74,7 @@ CREATE TABLE projects (
 - `user_uuid`: 作成者のユーザー UUID（外部キー）
 - `name`: プロジェクト名
 - `description`: プロジェクトの説明
+- `is_deleted`: 論理削除フラグ（デフォルト: FALSE）
 - `created_at`: 作成日時
 - `updated_at`: 最終更新日時
 
@@ -84,11 +90,13 @@ CREATE TABLE codes (
     code_content TEXT NOT NULL,
     language VARCHAR(50) DEFAULT 'python',
     description TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (project_uuid) REFERENCES projects(uuid) ON DELETE CASCADE,
     INDEX idx_project_uuid (project_uuid),
-    INDEX idx_created_at (created_at)
+    INDEX idx_created_at (created_at),
+    INDEX idx_is_deleted (is_deleted)
 );
 ```
 
@@ -100,6 +108,7 @@ CREATE TABLE codes (
 - `code_content`: 実際のコード内容
 - `language`: プログラミング言語（デフォルト: python）
 - `description`: コードの説明
+- `is_deleted`: 論理削除フラグ（デフォルト: FALSE）
 - `created_at`: 作成日時
 - `updated_at`: 最終更新日時
 
@@ -119,13 +128,15 @@ CREATE TABLE nodes (
     type ENUM('if', 'for', 'while', 'unknown', 'normal') DEFAULT 'normal',
     position_x INT DEFAULT 0,
     position_y INT DEFAULT 0,
+    is_deleted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (project_uuid) REFERENCES projects(uuid) ON DELETE CASCADE,
     FOREIGN KEY (code_uuid) REFERENCES codes(uuid) ON DELETE CASCADE,
     INDEX idx_project_uuid (project_uuid),
     INDEX idx_code_uuid (code_uuid),
-    INDEX idx_node_type (type)
+    INDEX idx_node_type (type),
+    INDEX idx_is_deleted (is_deleted)
 );
 ```
 
@@ -141,6 +152,7 @@ CREATE TABLE nodes (
 - `type`: ノードのタイプ（if/for/while/unknown/normal）
 - `position_x`: フローチャート上の X 座標
 - `position_y`: フローチャート上の Y 座標
+- `is_deleted`: 論理削除フラグ（デフォルト: FALSE）
 - `created_at`: 作成日時
 - `updated_at`: 最終更新日時
 
@@ -162,9 +174,11 @@ CREATE TABLE edges (
     project_uuid CHAR(36) NOT NULL,
     source_node_id INT NOT NULL,
     target_node_id INT NOT NULL,
+    is_deleted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (project_uuid) REFERENCES projects(uuid) ON DELETE CASCADE,
-    INDEX idx_project_uuid (project_uuid)
+    INDEX idx_project_uuid (project_uuid),
+    INDEX idx_is_deleted (is_deleted)
 );
 ```
 
@@ -174,6 +188,7 @@ CREATE TABLE edges (
 - `project_uuid`: 所属プロジェクトの UUID（外部キー）
 - `source_node_id`: 接続元ノードの node_id（重複可能）
 - `target_node_id`: 接続先ノードの node_id（重複可能）
+- `is_deleted`: 論理削除フラグ（デフォルト: FALSE）
 - `created_at`: 作成日時
 
 ## データの流れ
@@ -189,11 +204,11 @@ CREATE TABLE edges (
 
 効率的なクエリ実行のため、以下のインデックスを設定：
 
-- **users**: `username`, `email`にインデックス（ログイン時の検索高速化）
-- **projects**: `user_uuid`, `created_at`にインデックス（ユーザー別プロジェクト取得の高速化）
-- **codes**: `project_uuid`, `created_at`にインデックス（プロジェクト別コード取得の高速化）
-- **nodes**: `project_uuid`, `code_uuid`, `type`にインデックス（フローチャートデータ取得の高速化）
-- **edges**: `project_uuid`のみインデックス（プロジェクト単位での接続情報取得）
+- **users**: `username`, `email`, `is_deleted`にインデックス（ログイン時の検索高速化と論理削除データの除外）
+- **projects**: `user_uuid`, `created_at`, `is_deleted`にインデックス（ユーザー別プロジェクト取得の高速化と論理削除データの除外）
+- **codes**: `project_uuid`, `created_at`, `is_deleted`にインデックス（プロジェクト別コード取得の高速化と論理削除データの除外）
+- **nodes**: `project_uuid`, `code_uuid`, `type`, `is_deleted`にインデックス（フローチャートデータ取得の高速化と論理削除データの除外）
+- **edges**: `project_uuid`, `is_deleted`にインデックス（プロジェクト単位での接続情報取得と論理削除データの除外）
 
 ## 外部キー制約
 
@@ -265,6 +280,36 @@ docker exec -i flow_mysql mysql -u flowuser -pflowpassword flow < dev/database/s
 docker exec -i flow_mysql mysql -u flowuser -pflowpassword flow < dev/database/sql/create_edges_table.sql
 ```
 
+## 論理削除機能
+
+このデータベース設計では**論理削除（Soft Delete）**機能を実装しています。
+
+### 論理削除とは
+
+- データを物理的に削除せず、`is_deleted`フラグを`TRUE`に設定することでデータを「削除済み」としてマークする仕組み
+- 物理削除とは異なり、データはデータベースに残り続けるため、必要時にデータを復旧できる
+- 誤操作やシステム障害からの復旧、データ監査などの用途に有効
+
+### is_deleted フィールドの仕様
+
+- **データ型**: `BOOLEAN`
+- **デフォルト値**: `FALSE`（削除されていない状態）
+- **削除時の動作**: `is_deleted = TRUE`に設定
+- **インデックス**: 検索性能向上のため全テーブルに`idx_is_deleted`インデックスを設定
+
+### 使用例
+
+```sql
+-- データの論理削除
+UPDATE users SET is_deleted = TRUE WHERE uuid = 'target-uuid';
+
+-- 削除されていないデータのみを取得
+SELECT * FROM users WHERE is_deleted = FALSE;
+
+-- 削除されたデータの復旧
+UPDATE users SET is_deleted = FALSE WHERE uuid = 'target-uuid';
+```
+
 ## 注意事項
 
 - ユーザーが削除されると、関連するすべてのプロジェクト、コード、ノード、エッジも削除されます（CASCADE 設定）
@@ -273,6 +318,8 @@ docker exec -i flow_mysql mysql -u flowuser -pflowpassword flow < dev/database/s
 - source_node_id と target_node_id も同様に重複する可能性があります
 - UUID は自動生成され、グローバルに一意であることが保証されます
 - パスワードは必ずハッシュ化して保存してください（BCrypt など）
+- **論理削除されたデータは通常のクエリでは除外する必要があります**（`WHERE is_deleted = FALSE`条件を追加）
+- **論理削除により、データベースサイズが増加する可能性があります**（定期的なクリーンアップを検討）
 
 ## 更新履歴
 

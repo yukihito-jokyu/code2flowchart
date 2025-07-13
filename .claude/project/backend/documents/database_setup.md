@@ -20,6 +20,7 @@ dev/database/
 ├── init.sql           # データベース初期化スクリプト
 └── sql/               # 個別テーブル作成SQLファイル
     ├── create_users_table.sql
+    ├── create_projects_table.sql
     ├── create_codes_table.sql
     ├── create_nodes_table.sql
     └── create_edges_table.sql
