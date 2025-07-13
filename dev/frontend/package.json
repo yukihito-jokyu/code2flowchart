@@ -8,12 +8,12 @@
     "build": "tsc -b && vite build",
     "lint-check": "eslint ./src",
     "lint-fix": "eslint --fix ./src",
-    "lint-check-staged": "eslint $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
-    "lint-fix-staged": "eslint --fix $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
+    "lint-check-staged": "git diff --cached --name-only --diff-filter=ACM | grep '^dev/frontend/' | xargs -r eslint",
+    "lint-fix-staged": "git diff --cached --name-only --diff-filter=ACM | grep '^dev/frontend/' | xargs -r eslint --fix",
     "format-write": "prettier --write \"**/*.{ts,tsx}\"",
     "format-check": "prettier --check \"**/*.{ts,tsx}\"",
-    "format-check-staged": "prettier --check $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
-    "format-write-staged": "prettier --write $(git diff --cached --name-only --diff-filter=ACM | sed 's:^dev/frontend/::')",
+    "format-check-staged": "git diff --cached --name-only --diff-filter=ACM | grep '^dev/frontend/' | xargs -r prettier --check",
+    "format-write-staged": "git diff --cached --name-only --diff-filter=ACM | grep '^dev/frontend/' | xargs -r prettier --write",
     "preview": "vite preview"
   },
   "dependencies": {
