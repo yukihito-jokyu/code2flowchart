@@ -15,7 +15,7 @@ class UserManager:
             # usernameをemailから生成（@より前の部分）
             username = email.split("@")[0]
 
-            # 同じusernameが既に存在する場合は数字を付加
+            # 同じusernameが既に存在する場合は数字を付加（削除済みユーザーも含めてチェック）
             base_username = username
             counter = 1
             while self.db.query(User).filter(User.username == username).first():
@@ -35,17 +35,27 @@ class UserManager:
             self.db.rollback()
             return None
 
-    def get_user_by_email(self, email: str) -> Optional[User]:
+    def get_user_by_email(
+        self, email: str, include_deleted: bool = False
+    ) -> Optional[User]:
         """メールアドレスでユーザーを取得"""
-        return self.db.query(User).filter(User.email == email).first()
+        query = self.db.query(User).filter(User.email == email)
+        if not include_deleted:
+            query = query.filter(User.is_deleted is False)
+        return query.first()
 
-    def get_user_by_uuid(self, uuid: str) -> Optional[User]:
+    def get_user_by_uuid(
+        self, uuid: str, include_deleted: bool = False
+    ) -> Optional[User]:
         """UUIDでユーザーを取得"""
-        return self.db.query(User).filter(User.uuid == uuid).first()
+        query = self.db.query(User).filter(User.uuid == uuid)
+        if not include_deleted:
+            query = query.filter(User.is_deleted is False)
+        return query.first()
 
     def authenticate_user(self, email: str, password: str) -> Optional[User]:
-        """ユーザー認証"""
-        user = self.get_user_by_email(email)
+        """ユーザー認証（削除済みユーザーは認証不可）"""
+        user = self.get_user_by_email(email, include_deleted=False)
         if not user:
             return None
         if not verify_password(password, user.password_hash):
