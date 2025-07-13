@@ -8,6 +8,10 @@ FastAPI と uvicorn を使用した Python バックエンドプロジェクト�
 
 - **フレームワーク**: FastAPI (>=0.115.12)
 - **Web サーバー**: uvicorn (>=0.34.2)
+- **認証**: JWT (python-jose[cryptography] >=3.5.0)
+- **パスワードハッシュ化**: bcrypt (passlib[bcrypt] >=1.7.4)
+- **データベース**: SQLAlchemy (>=2.0.41), PyMySQL (>=1.1.1)
+- **バリデーション**: Pydantic, email-validator (>=2.2.0)
 - **パッケージ管理**: uv
 - **Python 要件**: >=3.11
 
@@ -18,7 +22,24 @@ dev/backend/
 ├── README.md (空ファイル)
 ├── main.py
 ├── pyproject.toml
-└── uv.lock
+├── uv.lock
+├── models/
+│   ├── __init__.py
+│   └── user.py                 # ユーザーモデル（SQLAlchemy）
+├── schemas/
+│   ├── __init__.py
+│   └── auth.py                 # 認証用のPydanticスキーマ
+├── auth/
+│   ├── __init__.py
+│   ├── utils.py                # JWT生成、パスワードハッシュ化
+│   ├── user_manager.py         # ユーザー管理機能
+│   └── middleware.py           # 認証ミドルウェア
+├── utils/
+│   ├── __init__.py
+│   └── database.py             # データベース接続設定
+└── routes/
+    ├── __init__.py
+    └── auth.py                 # 認証APIエンドポイント
 ```
 
 ## メインファイル詳細
@@ -33,6 +54,8 @@ dev/backend/
 
 - FastAPI アプリケーションのエントリーポイント
 - CORS 設定で React (localhost:5173) からのアクセスを許可
+- 認証ルーター (/api/auth) の統合
+- データベーステーブルの自動作成
 - API エンドポイント: `/api/hello` (Hello from FastAPI!メッセージを返却)
 
 ## 開発コマンド
@@ -47,7 +70,13 @@ uv run uvicorn main:app --reload
 
 ## API エンドポイント
 
+### 基本エンドポイント
 - `GET /api/hello`: テスト用の hello メッセージを返却
+
+### 認証エンドポイント
+- `POST /api/auth/signup`: 新規ユーザー登録
+- `POST /api/auth/login`: ユーザーログイン（JWTトークン発行）
+- `POST /api/auth/logout`: ユーザーログアウト（トークン無効化）
 
 ## CORS 設定
 
@@ -57,7 +86,18 @@ uv run uvicorn main:app --reload
 
 ## Backend のドキュメント
 
+### データベース関連
 - database の setup について
   - `.claude/project/backend/documents/database_setup.md`
 - データベーススキーマ設計について
   - `.claude/project/backend/documents/database_schema.md`
+
+### 認証システム関連
+- 認証API実装の詳細
+  - `.claude/project/backend/documents/auth_api_implementation.md`
+- ユーザー管理システムの設計
+  - `.claude/project/backend/documents/user_management_system.md`
+- JWT認証システムの実装
+  - `.claude/project/backend/documents/jwt_authentication_system.md`
+- APIセキュリティの実装
+  - `.claude/project/backend/documents/api_security_implementation.md`

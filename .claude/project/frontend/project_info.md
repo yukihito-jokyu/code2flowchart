@@ -10,6 +10,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 - **TypeScript**: ~5.7.2
 - **ビルドツール**: Vite 6.3.1 (SWC プラグイン使用)
 - **HTTP クライアント**: axios 1.9.0
+- **状態管理**: Redux Toolkit 2.8.2, React Redux 9.2.0
+- **ルーティング**: React Router DOM 7.6.3
 - **コード品質ツール**: ESLint 9.22.0, Prettier 3.6.2
 
 ## 設定詳細
@@ -71,6 +73,16 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 - **Auth Routing**: `.claude/project/frontend/documents/auth_routing.md`
 - **Auth Navigation**: `.claude/project/frontend/documents/auth_navigation.md`
 - **Login API**: `.claude/project/frontend/documents/api/login_api.md`
+- **Auth Modal Integration**: `.claude/project/frontend/documents/feature/auth_modal_integration.md`
+
+### Redux状態管理
+- **Redux Architecture**: `.claude/project/frontend/documents/store/redux_architecture.md`
+
+### コンポーネント
+- **Modal System**: `.claude/project/frontend/documents/component/modal_system.md`
+
+### ページ
+- **Dashboard Page**: `.claude/project/frontend/documents/page/dashboard_page.md`
 
 ## 開発コマンド
 
