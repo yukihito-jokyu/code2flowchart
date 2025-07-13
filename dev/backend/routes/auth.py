@@ -14,7 +14,7 @@ from auth.middleware import get_current_user, security
 from utils.database import get_db
 from models.user import User
 
-router = APIRouter(prefix="/auth", tags=["authentication"])
+router = APIRouter()
 
 
 @router.post("/signup", response_model=SignupResponse)

@@ -71,11 +71,13 @@ uv run uvicorn main:app --reload
 ## API エンドポイント
 
 ### 基本エンドポイント
+
 - `GET /api/hello`: テスト用の hello メッセージを返却
 
 ### 認証エンドポイント
+
 - `POST /api/auth/signup`: 新規ユーザー登録
-- `POST /api/auth/login`: ユーザーログイン（JWTトークン発行）
+- `POST /api/auth/login`: ユーザーログイン（JWT トークン発行）
 - `POST /api/auth/logout`: ユーザーログアウト（トークン無効化）
 
 ## CORS 設定
@@ -87,17 +89,24 @@ uv run uvicorn main:app --reload
 ## Backend のドキュメント
 
 ### データベース関連
+
 - database の setup について
   - `.claude/project/backend/documents/database_setup.md`
 - データベーススキーマ設計について
   - `.claude/project/backend/documents/database_schema.md`
 
 ### 認証システム関連
-- 認証API実装の詳細
+
+- 認証 API 実装の詳細
   - `.claude/project/backend/documents/auth_api_implementation.md`
 - ユーザー管理システムの設計
   - `.claude/project/backend/documents/user_management_system.md`
-- JWT認証システムの実装
+- JWT 認証システムの実装
   - `.claude/project/backend/documents/jwt_authentication_system.md`
-- APIセキュリティの実装
+- API セキュリティの実装
   - `.claude/project/backend/documents/api_security_implementation.md`
+
+### プロジェクト関連
+
+- プロジェクト管理システム実装
+  - `.claude/project/backend/documents/project_management_system.md`

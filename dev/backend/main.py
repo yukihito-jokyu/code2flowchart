@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.auth import router as auth_router
+from routes.project import router as project_router
 from utils.database import create_tables
 
 app = FastAPI()
@@ -18,7 +19,8 @@ app.add_middleware(
 create_tables()
 
 # ルーターの追加
-app.include_router(auth_router, prefix="/api")
+app.include_router(auth_router, prefix="/api/auth", tags=["認証"])
+app.include_router(project_router, prefix="/api/projects", tags=["プロジェクト"])
 
 
 @app.get("/api/hello")
