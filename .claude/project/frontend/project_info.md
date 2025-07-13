@@ -80,6 +80,10 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 
 - **Redux Architecture**: `.claude/project/frontend/documents/store/redux_architecture.md`
 
+### フィーチャー
+
+- **Flowchart Feature**: `.claude/project/frontend/documents/flowchart_feature.md`
+
 ### コンポーネント
 
 - **Modal System**: `.claude/project/frontend/documents/component/modal_system.md`
@@ -88,6 +92,11 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 ### ページ
 
 - **Dashboard Page**: `.claude/project/frontend/documents/page/dashboard_page.md`
+- **Flowchart Page**: `.claude/project/frontend/documents/page/flowchart_page.md`
+
+### ルーティング
+
+- **Flowchart Route**: `.claude/project/frontend/documents/route/flowchart_route.md`
 
 ## 開発コマンド
 
