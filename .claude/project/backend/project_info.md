@@ -29,11 +29,12 @@ dev/backend/
 ├── schemas/
 │   ├── __init__.py
 │   └── auth.py                 # 認証用のPydanticスキーマ
-├── auth/
-│   ├── __init__.py
-│   ├── utils.py                # JWT生成、パスワードハッシュ化
-│   ├── user_manager.py         # ユーザー管理機能
-│   └── middleware.py           # 認証ミドルウェア
+├── lib/
+│   └── auth/
+│       ├── __init__.py
+│       ├── utils.py            # JWT生成、パスワードハッシュ化
+│       ├── user_manager.py     # ユーザー管理機能
+│       └── middleware.py       # 認証ミドルウェア
 ├── utils/
 │   ├── __init__.py
 │   └── database.py             # データベース接続設定
@@ -110,3 +111,8 @@ uv run uvicorn main:app --reload
 
 - プロジェクト管理システム実装
   - `.claude/project/backend/documents/project_management_system.md`
+
+### 認証システム構造変更
+
+- 認証ディレクトリ構造変更とバグ修正 (Issue #19)
+  - `.claude/project/backend/documents/auth_directory_restructure.md`
