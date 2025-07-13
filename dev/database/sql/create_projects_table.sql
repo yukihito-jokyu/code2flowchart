@@ -4,9 +4,11 @@ CREATE TABLE IF NOT EXISTS projects (
     user_uuid CHAR(36) NOT NULL,
     name VARCHAR(255) NOT NULL,
     description TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_uuid) REFERENCES users(uuid) ON DELETE CASCADE,
     INDEX idx_user_uuid (user_uuid),
-    INDEX idx_created_at (created_at)
+    INDEX idx_created_at (created_at),
+    INDEX idx_is_deleted (is_deleted)
 );
