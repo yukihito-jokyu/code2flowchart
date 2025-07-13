@@ -26,8 +26,18 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         <div className={styles.card}>
-          <h2 className={styles.cardTitle}>機能</h2>
-          <p className={styles.cardDescription}>アプリケーションの主要機能にアクセスできます。</p>
+          <h2 className={styles.cardTitle}>プロジェクト管理</h2>
+          <p className={styles.cardDescription}>プロジェクトの作成、編集、削除ができます。</p>
+          <div className={styles.actions}>
+            <Link to="/projects" className={styles.projectButton}>
+              プロジェクト管理
+            </Link>
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>その他の機能</h2>
+          <p className={styles.cardDescription}>その他のアプリケーション機能にアクセスできます。</p>
           <div className={styles.actions}>
             <button className={styles.featureButton} disabled>
               機能準備中
