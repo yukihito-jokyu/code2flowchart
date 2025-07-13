@@ -1,11 +1,25 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { Card } from '@/components';
 import { useAuth } from '@/features/auth';
 
 import styles from './DashboardPage.module.css';
 
 export const DashboardPage: React.FC = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/logout');
+  };
+
+  const handleProjectManagement = () => {
+    navigate('/projects');
+  };
+
+  const handleOtherFeatures = () => {
+    // 機能準備中のため、何もしない
+  };
 
   return (
     <div className={styles.container}>
@@ -15,35 +29,30 @@ export const DashboardPage: React.FC = () => {
       </div>
 
       <div className={styles.content}>
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>アカウント管理</h2>
-          <p className={styles.cardDescription}>アカウント設定やログアウトができます。</p>
-          <div className={styles.actions}>
-            <Link to="/logout" className={styles.logoutButton}>
-              ログアウト
-            </Link>
-          </div>
-        </div>
+        <Card
+          title="アカウント管理"
+          description="アカウント設定やログアウトができます。"
+          buttonText="ログアウト"
+          onButtonClick={handleLogout}
+          variant="danger"
+        />
 
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>プロジェクト管理</h2>
-          <p className={styles.cardDescription}>プロジェクトの作成、編集、削除ができます。</p>
-          <div className={styles.actions}>
-            <Link to="/projects" className={styles.projectButton}>
-              プロジェクト管理
-            </Link>
-          </div>
-        </div>
+        <Card
+          title="プロジェクト管理"
+          description="プロジェクトの作成、編集、削除ができます。"
+          buttonText="プロジェクト管理"
+          onButtonClick={handleProjectManagement}
+          variant="primary"
+        />
 
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>その他の機能</h2>
-          <p className={styles.cardDescription}>その他のアプリケーション機能にアクセスできます。</p>
-          <div className={styles.actions}>
-            <button className={styles.featureButton} disabled>
-              機能準備中
-            </button>
-          </div>
-        </div>
+        <Card
+          title="その他の機能"
+          description="その他のアプリケーション機能にアクセスできます。"
+          buttonText="機能準備中"
+          onButtonClick={handleOtherFeatures}
+          variant="default"
+          disabled={true}
+        />
       </div>
     </div>
   );
