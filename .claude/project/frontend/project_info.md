@@ -67,6 +67,7 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 ## ドキュメント
 
 ### 認証機能
+
 - **Auth Feature**: `.claude/project/frontend/documents/auth_feature.md`
 - **Signup Page**: `.claude/project/frontend/documents/signup_page.md`
 - **Login Page**: `.claude/project/frontend/documents/login_page.md`
@@ -75,13 +76,16 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 - **Login API**: `.claude/project/frontend/documents/api/login_api.md`
 - **Auth Modal Integration**: `.claude/project/frontend/documents/feature/auth_modal_integration.md`
 
-### Redux状態管理
+### Redux 状態管理
+
 - **Redux Architecture**: `.claude/project/frontend/documents/store/redux_architecture.md`
 
 ### コンポーネント
+
 - **Modal System**: `.claude/project/frontend/documents/component/modal_system.md`
 
 ### ページ
+
 - **Dashboard Page**: `.claude/project/frontend/documents/page/dashboard_page.md`
 
 ## 開発コマンド

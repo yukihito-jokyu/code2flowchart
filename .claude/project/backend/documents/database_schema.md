@@ -1,9 +1,9 @@
-# データベーススキーマ設計（UUID版）
+# データベーススキーマ設計（UUID 版）
 
 ## 概要
 
-code2flowchartプロジェクトで使用するMySQLデータベースのスキーマ設計ドキュメントです。
-UUIDベースの主キーとプロジェクト中心の設計により、安全で拡張性の高いデータ構造を実現しています。
+code2flowchart プロジェクトで使用する MySQL データベースのスキーマ設計ドキュメントです。
+UUID ベースの主キーとプロジェクト中心の設計により、安全で拡張性の高いデータ構造を実現しています。
 
 ## データベース構成
 
@@ -13,13 +13,13 @@ UUIDベースの主キーとプロジェクト中心の設計により、安全�
 
 ## 設計原則
 
-- **UUID主キー**: 全テーブルでUUIDを主キーとして使用し、セキュリティと一意性を確保
+- **UUID 主キー**: 全テーブルで UUID を主キーとして使用し、セキュリティと一意性を確保
 - **プロジェクト中心設計**: プロジェクトを中心とした階層構造でデータを管理
 - **外部キー制約**: データ整合性を保つための適切な制約設定
 
 ## テーブル設計
 
-### 1. usersテーブル
+### 1. users テーブル
 
 ユーザー認証と管理のためのテーブル。
 
@@ -37,6 +37,7 @@ CREATE TABLE users (
 ```
 
 **フィールド説明:**
+
 - `uuid`: ユーザーの一意識別子（UUID）
 - `username`: ユーザー名（ユニーク制約）
 - `email`: メールアドレス（ユニーク制約）
@@ -44,7 +45,7 @@ CREATE TABLE users (
 - `created_at`: アカウント作成日時
 - `updated_at`: 最終更新日時
 
-### 2. projectsテーブル
+### 2. projects テーブル
 
 ユーザーのプロジェクトを管理するテーブル。
 
@@ -63,14 +64,15 @@ CREATE TABLE projects (
 ```
 
 **フィールド説明:**
+
 - `uuid`: プロジェクトの一意識別子（UUID）
-- `user_uuid`: 作成者のユーザーUUID（外部キー）
+- `user_uuid`: 作成者のユーザー UUID（外部キー）
 - `name`: プロジェクト名
 - `description`: プロジェクトの説明
 - `created_at`: 作成日時
 - `updated_at`: 最終更新日時
 
-### 3. codesテーブル
+### 3. codes テーブル
 
 プロジェクト内のコードとメタ情報を保存するテーブル。
 
@@ -91,8 +93,9 @@ CREATE TABLE codes (
 ```
 
 **フィールド説明:**
+
 - `uuid`: コードの一意識別子（UUID）
-- `project_uuid`: 所属プロジェクトのUUID（外部キー）
+- `project_uuid`: 所属プロジェクトの UUID（外部キー）
 - `title`: コードのタイトル
 - `code_content`: 実際のコード内容
 - `language`: プログラミング言語（デフォルト: python）
@@ -100,7 +103,7 @@ CREATE TABLE codes (
 - `created_at`: 作成日時
 - `updated_at`: 最終更新日時
 
-### 4. nodesテーブル
+### 4. nodes テーブル
 
 フローチャートのノード情報を保存するテーブル。
 
@@ -127,27 +130,29 @@ CREATE TABLE nodes (
 ```
 
 **フィールド説明:**
+
 - `uuid`: ノードの一意識別子（UUID）
-- `project_uuid`: 所属プロジェクトのUUID（外部キー）
-- `code_uuid`: 関連するコードのUUID（外部キー）
-- `node_id`: フローチャート内でのノードID（重複可能）
+- `project_uuid`: 所属プロジェクトの UUID（外部キー）
+- `code_uuid`: 関連するコードの UUID（外部キー）
+- `node_id`: フローチャート内でのノード ID（重複可能）
 - `title`: ノードのタイトル（一言説明）
 - `code_snippet`: ノードに対応するコード片
 - `info`: ノードの詳細説明
 - `type`: ノードのタイプ（if/for/while/unknown/normal）
-- `position_x`: フローチャート上のX座標
-- `position_y`: フローチャート上のY座標
+- `position_x`: フローチャート上の X 座標
+- `position_y`: フローチャート上の Y 座標
 - `created_at`: 作成日時
 - `updated_at`: 最終更新日時
 
 **タイプ分類:**
-- `if`: if文
-- `for`: for文
-- `while`: while文
+
+- `if`: if 文
+- `for`: for 文
+- `while`: while 文
 - `unknown`: 未知の関数など
 - `normal`: その他一般処理
 
-### 5. edgesテーブル
+### 5. edges テーブル
 
 ノード間の接続情報を保存するテーブル。
 
@@ -164,10 +169,11 @@ CREATE TABLE edges (
 ```
 
 **フィールド説明:**
+
 - `uuid`: エッジの一意識別子（UUID）
-- `project_uuid`: 所属プロジェクトのUUID（外部キー）
-- `source_node_id`: 接続元ノードのnode_id（重複可能）
-- `target_node_id`: 接続先ノードのnode_id（重複可能）
+- `project_uuid`: 所属プロジェクトの UUID（外部キー）
+- `source_node_id`: 接続元ノードの node_id（重複可能）
+- `target_node_id`: 接続先ノードの node_id（重複可能）
 - `created_at`: 作成日時
 
 ## データの流れ
@@ -175,9 +181,9 @@ CREATE TABLE edges (
 1. **ユーザー登録・ログイン**: `users`テーブルでユーザー管理
 2. **プロジェクト作成**: `projects`テーブルでユーザー別プロジェクト管理
 3. **コード入力**: `codes`テーブルにプロジェクト内コードとメタ情報を保存
-4. **AIによる解析**: ChatGPT APIがコードを解析してノード・エッジ構造を生成
+4. **AI による解析**: ChatGPT API がコードを解析してノード・エッジ構造を生成
 5. **フローチャートデータ保存**: `nodes`と`edges`テーブルにプロジェクト単位で構造化データを保存
-6. **可視化**: react-flowでフローチャートを描画
+6. **可視化**: react-flow でフローチャートを描画
 
 ## インデックス設計
 
@@ -215,16 +221,16 @@ users (ユーザー)
      └─ edges (エッジ)
 ```
 
-## SQLファイル
+## SQL ファイル
 
-テーブル作成用のSQLファイルが以下に分割されて配置されています：
+テーブル作成用の SQL ファイルが以下に分割されて配置されています：
 
-- `dev/database/init.sql`: 統合スキーマファイル（UUID版）
-- `dev/database/sql/create_users_table.sql`: usersテーブル作成
-- `dev/database/sql/create_projects_table.sql`: projectsテーブル作成
-- `dev/database/sql/create_codes_table.sql`: codesテーブル作成
-- `dev/database/sql/create_nodes_table.sql`: nodesテーブル作成
-- `dev/database/sql/create_edges_table.sql`: edgesテーブル作成
+- `dev/database/init.sql`: 統合スキーマファイル（UUID 版）
+- `dev/database/sql/create_users_table.sql`: users テーブル作成
+- `dev/database/sql/create_projects_table.sql`: projects テーブル作成
+- `dev/database/sql/create_codes_table.sql`: codes テーブル作成
+- `dev/database/sql/create_nodes_table.sql`: nodes テーブル作成
+- `dev/database/sql/create_edges_table.sql`: edges テーブル作成
 
 ### ファイル構成
 
@@ -243,11 +249,13 @@ dev/database/
 ### 使用方法
 
 **統合スキーマファイルを使用する場合:**
+
 ```bash
 docker exec -i flow_mysql mysql -u flowuser -pflowpassword flow < dev/database/init.sql
 ```
 
 **個別テーブルを作成する場合:**
+
 ```bash
 # 依存関係に注意して順番に実行
 docker exec -i flow_mysql mysql -u flowuser -pflowpassword flow < dev/database/sql/create_users_table.sql
@@ -259,17 +267,18 @@ docker exec -i flow_mysql mysql -u flowuser -pflowpassword flow < dev/database/s
 
 ## 注意事項
 
-- ユーザーが削除されると、関連するすべてのプロジェクト、コード、ノード、エッジも削除されます（CASCADE設定）
+- ユーザーが削除されると、関連するすべてのプロジェクト、コード、ノード、エッジも削除されます（CASCADE 設定）
 - プロジェクトが削除されると、関連するコード、ノード、エッジも削除されます
-- ノードIDはフローチャート内でのみ有効であり、重複する可能性があります
-- source_node_idとtarget_node_idも同様に重複する可能性があります
-- UUIDは自動生成され、グローバルに一意であることが保証されます
-- パスワードは必ずハッシュ化して保存してください（BCryptなど）
+- ノード ID はフローチャート内でのみ有効であり、重複する可能性があります
+- source_node_id と target_node_id も同様に重複する可能性があります
+- UUID は自動生成され、グローバルに一意であることが保証されます
+- パスワードは必ずハッシュ化して保存してください（BCrypt など）
 
 ## 更新履歴
 
-### v2.0 (UUID版) - 2025-01-12
-- 全テーブルでUUID主キーを采用
-- projectsテーブルを追加し、プロジェクト中心の設計に変更
-- edgesテーブルからcode_uuidを削除、プロジェクトレベルでの管理に簡略化
-- node_id関連のユニーク制約とインデックスを削除（重複可能に変更）
+### v2.0 (UUID 版) - 2025-01-12
+
+- 全テーブルで UUID 主キーを采用
+- projects テーブルを追加し、プロジェクト中心の設計に変更
+- edges テーブルから code_uuid を削除、プロジェクトレベルでの管理に簡略化
+- node_id 関連のユニーク制約とインデックスを削除（重複可能に変更）

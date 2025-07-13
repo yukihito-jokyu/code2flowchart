@@ -2,18 +2,20 @@
 
 ## 概要
 
-プロジェクト管理機能は、ユーザーがプロジェクトの作成、編集、削除、復元を行えるWebアプリケーション機能です。React + TypeScript + Redux Toolkitを使用して実装されており、ソフトデリート機能により安全なデータ管理を実現しています。
+プロジェクト管理機能は、ユーザーがプロジェクトの作成、編集、削除、復元を行える Web アプリケーション機能です。React + TypeScript + Redux Toolkit を使用して実装されており、ソフトデリート機能により安全なデータ管理を実現しています。
 
 ## 技術スタック
 
 ### 主要技術
-- **React 19.0.0**: UIコンポーネント
+
+- **React 19.0.0**: UI コンポーネント
 - **TypeScript**: 型安全性
 - **Redux Toolkit 2.8.2**: 状態管理
 - **React Router DOM 7.6.3**: ルーティング
-- **Axios 1.9.0**: HTTP通信
+- **Axios 1.9.0**: HTTP 通信
 
 ### 設計パターン
+
 - **Feature-based Architecture**: 機能別ディレクトリ構造
 - **CSS Modules**: スタイル管理
 - **Compound Components**: 再利用可能なコンポーネント
@@ -21,6 +23,7 @@
 ## アーキテクチャ
 
 ### ディレクトリ構造
+
 ```
 src/
 ├── features/project/
@@ -41,6 +44,7 @@ src/
 ```
 
 ### データフロー
+
 ```
 UI Components → Redux Actions → API Client → Backend
      ↑                                           ↓
@@ -50,6 +54,7 @@ State Selectors ← Redux Store ← Response Handler
 ## 状態管理（Redux）
 
 ### ProjectState
+
 ```typescript
 interface ProjectState {
   projects: Project[];
@@ -62,6 +67,7 @@ interface ProjectState {
 ```
 
 ### 非同期アクション
+
 - `createProject`: 新規プロジェクト作成
 - `fetchProjects`: アクティブプロジェクト一覧取得
 - `fetchDeletedProjects`: 削除済みプロジェクト一覧取得
@@ -71,29 +77,33 @@ interface ProjectState {
 - `hardDeleteProject`: 完全削除
 
 ### セレクタ
+
 ```typescript
 export const selectProjects = (state: RootState) => state.project.projects;
-export const selectDeletedProjects = (state: RootState) => state.project.deletedProjects;
+export const selectDeletedProjects = (state: RootState) =>
+  state.project.deletedProjects;
 export const selectProjectLoading = (state: RootState) => state.project.loading;
 export const selectProjectError = (state: RootState) => state.project.error;
 ```
 
-## API通信
+## API 通信
 
-### APIクライアント設定
+### API クライアント設定
+
 ```typescript
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: "http://localhost:8000/api",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 ```
 
 ### 認証インターセプター
+
 ```typescript
 apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem("authToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -102,53 +112,62 @@ apiClient.interceptors.request.use((config) => {
 ```
 
 ### エラーハンドリング
+
 ```typescript
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
-      localStorage.removeItem('authToken');
-      window.location.href = '/login';
+      localStorage.removeItem("authToken");
+      window.location.href = "/login";
     }
     return Promise.reject(error);
   }
 );
 ```
 
-## UIコンポーネント
+## UI コンポーネント
 
 ### ProjectsPage
+
 メインのプロジェクト管理画面
 
 **主要機能**:
+
 - プロジェクト一覧表示（アクティブ/削除済み）
 - タブ切り替え
 - プロジェクト作成ボタン
-- CRUD操作
+- CRUD 操作
 
 **状態管理**:
+
 ```typescript
-const [activeTab, setActiveTab] = useState<'active' | 'deleted'>('active');
+const [activeTab, setActiveTab] = useState<"active" | "deleted">("active");
 const [showCreateModal, setShowCreateModal] = useState(false);
 const [showEditModal, setShowEditModal] = useState(false);
 const [editingProject, setEditingProject] = useState<Project | null>(null);
 ```
 
 ### ProjectCreateModal
+
 新規プロジェクト作成モーダル
 
 **フォームフィールド**:
+
 - プロジェクト名（必須）
 - 説明（任意）
 
 **バリデーション**:
+
 - プロジェクト名の入力チェック
 - リアルタイムフォーム状態管理
 
 ### ProjectEditModal
+
 プロジェクト編集モーダル
 
 **機能**:
+
 - 既存データの読み込み
 - 変更検知
 - 更新処理
@@ -156,6 +175,7 @@ const [editingProject, setEditingProject] = useState<Project | null>(null);
 ## デザインシステム
 
 ### カラーパレット
+
 ```css
 --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 --button-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
@@ -166,6 +186,7 @@ const [editingProject, setEditingProject] = useState<Project | null>(null);
 ```
 
 ### デザイン原則
+
 - **統一性**: ダッシュボードとの色調統一
 - **可読性**: 高コントラスト設計
 - **レスポンシブ**: モバイルファーストアプローチ
@@ -174,6 +195,7 @@ const [editingProject, setEditingProject] = useState<Project | null>(null);
 ### コンポーネントスタイリング
 
 #### プロジェクトカード
+
 ```css
 .projectCard {
   background: white;
@@ -190,6 +212,7 @@ const [editingProject, setEditingProject] = useState<Project | null>(null);
 ```
 
 #### モーダルフォーム
+
 ```css
 .input {
   padding: 0.75rem;
@@ -207,6 +230,7 @@ const [editingProject, setEditingProject] = useState<Project | null>(null);
 ## ナビゲーション
 
 ### ルーティング
+
 ```typescript
 {
   path: '/projects',
@@ -215,88 +239,103 @@ const [editingProject, setEditingProject] = useState<Project | null>(null);
 ```
 
 ### ページ遷移
+
 - ダッシュボード → プロジェクト管理: `/dashboard` → `/projects`
 - プロジェクト管理 → ダッシュボード: 戻るボタン
 
 ## パフォーマンス最適化
 
 ### メモ化
+
 - `useCallback`でイベントハンドラー最適化
 - `useMemo`で計算結果キャッシュ
 
 ### 非同期処理
-- Redux Toolkitの`createAsyncThunk`使用
+
+- Redux Toolkit の`createAsyncThunk`使用
 - エラーハンドリングとローディング状態管理
 
 ### バンドル最適化
-- CSS Modulesによるスタイル分離
-- Tree Shakingによる不要コード除去
+
+- CSS Modules によるスタイル分離
+- Tree Shaking による不要コード除去
 
 ## エラーハンドリング
 
 ### フロントエンドエラー
+
 ```typescript
 try {
   await dispatch(createProject(formData)).unwrap();
-  showNotification('success', '成功', 'プロジェクトが作成されました');
+  showNotification("success", "成功", "プロジェクトが作成されました");
 } catch (error) {
-  showNotification('error', 'エラー', 'プロジェクトの作成に失敗しました');
+  showNotification("error", "エラー", "プロジェクトの作成に失敗しました");
 }
 ```
 
 ### 通知システム
+
 - `useNotification`フックによる統一的な通知
-- 成功/エラー/情報の3タイプ
+- 成功/エラー/情報の 3 タイプ
 
 ## セキュリティ
 
 ### 認証
-- JWTトークンによる認証
+
+- JWT トークンによる認証
 - ローカルストレージでのトークン管理
 - 認証エラー時の自動ログアウト
 
 ### 入力検証
-- TypeScriptによる型チェック
+
+- TypeScript による型チェック
 - フォームバリデーション
-- XSS対策（React標準）
+- XSS 対策（React 標準）
 
 ## テスト戦略
 
 ### 単体テスト
+
 - コンポーネントテスト（Jest + React Testing Library）
-- Redux sliceテスト
-- APIクライアントテスト
+- Redux slice テスト
+- API クライアントテスト
 
 ### 統合テスト
-- E2Eテスト（Playwright）
-- API連携テスト
+
+- E2E テスト（Playwright）
+- API 連携テスト
 
 ## 今後の改善点
 
 ### 機能拡張
+
 - プロジェクトの検索・フィルタリング
 - ドラッグ&ドロップによるソート
 - プロジェクトのエクスポート機能
 - ダークモード対応
 
-### UX改善
+### UX 改善
+
 - 無限スクロール
 - オフライン対応
 - プログレッシブウェブアプリ化
 
 ### パフォーマンス
+
 - 仮想化による大量データ表示
-- Service Workerによるキャッシュ
+- Service Worker によるキャッシュ
 - 画像の遅延読み込み
 
 ## 運用・監視
 
 ### ログ
+
 - アクション実行ログ
 - エラー発生ログ
 - ユーザー操作ログ
 
 ### 分析
+
 - ユーザー行動分析
 - パフォーマンス監視
 - エラー率監視

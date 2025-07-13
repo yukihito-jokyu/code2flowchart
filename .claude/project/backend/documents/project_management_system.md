@@ -8,7 +8,8 @@
 
 ### データベース設計
 
-#### Projectモデル
+#### Project モデル
+
 ```python
 class Project(Base):
     __tablename__ = "projects"
@@ -23,9 +24,10 @@ class Project(Base):
 ```
 
 **主要フィールド**:
+
 - `uuid`: プロジェクト固有識別子
 - `user_uuid`: プロジェクト所有者
-- `name`: プロジェクト名（必須、最大100文字）
+- `name`: プロジェクト名（必須、最大 100 文字）
 - `description`: プロジェクト説明（任意、テキスト）
 - `is_deleted`: ソフトデリートフラグ
 - `created_at`, `updated_at`: タイムスタンプ
@@ -35,17 +37,20 @@ class Project(Base):
 #### 主要メソッド
 
 **プロジェクト作成**
+
 ```python
 def create_project(db: Session, project_data: ProjectCreate, user_uuid: str) -> Project
 ```
 
 **プロジェクト取得**
+
 ```python
 def get_project_by_uuid(db: Session, project_uuid: str, user_uuid: str) -> Optional[Project]
 def get_projects_by_user(db: Session, user_uuid: str, skip: int = 0, limit: int = 100) -> List[Project]
 ```
 
 **ソフトデリート機能**
+
 ```python
 def soft_delete_project(db: Session, project_uuid: str, user_uuid: str) -> bool
 def restore_project(db: Session, project_uuid: str, user_uuid: str) -> bool
@@ -60,9 +65,10 @@ def hard_delete_project(db: Session, project_uuid: str, user_uuid: str) -> bool
 
 すべてのクエリで`is_deleted = False`条件を自動適用し、削除済みプロジェクトを除外します。
 
-### APIエンドポイント
+### API エンドポイント
 
-#### 基本CRUD操作
+#### 基本 CRUD 操作
+
 - `POST /api/projects/` - プロジェクト作成
 - `GET /api/projects/` - アクティブプロジェクト一覧
 - `GET /api/projects/{uuid}` - プロジェクト詳細
@@ -70,23 +76,27 @@ def hard_delete_project(db: Session, project_uuid: str, user_uuid: str) -> bool
 - `DELETE /api/projects/{uuid}` - ソフトデリート
 
 #### 削除管理
+
 - `GET /api/projects/deleted` - 削除済みプロジェクト一覧
 - `POST /api/projects/{uuid}/restore` - プロジェクト復元
 - `DELETE /api/projects/{uuid}/hard` - 完全削除
 
 ### 認証・認可
 
-#### JWT認証
-- すべてのAPIエンドポイントにJWT認証が必要
+#### JWT 認証
+
+- すべての API エンドポイントに JWT 認証が必要
 - 認証ミドルウェア（`get_current_user`）で実装
 
 #### アクセス制御
+
 - ユーザーは自分が所有するプロジェクトのみアクセス可能
 - `user_uuid`によるフィルタリングで実現
 
 ### スキーマ設計
 
 #### リクエストスキーマ
+
 ```python
 class ProjectCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
@@ -98,6 +108,7 @@ class ProjectUpdate(BaseModel):
 ```
 
 #### レスポンススキーマ
+
 ```python
 class ProjectResponse(BaseModel):
     uuid: str
@@ -115,7 +126,8 @@ class ProjectListResponse(BaseModel):
 
 ### エラーハンドリング
 
-#### HTTPステータスコード
+#### HTTP ステータスコード
+
 - `200`: 成功
 - `201`: 作成成功
 - `404`: プロジェクトが見つからない
@@ -124,6 +136,7 @@ class ProjectListResponse(BaseModel):
 - `500`: サーバーエラー
 
 #### エラーレスポンス
+
 ```json
 {
   "detail": "エラーメッセージ"
@@ -133,29 +146,34 @@ class ProjectListResponse(BaseModel):
 ### パフォーマンス最適化
 
 #### インデックス設計
+
 - `user_uuid`: ユーザー別プロジェクト検索用
 - `is_deleted`: ソフトデリートフィルタリング用
 - `created_at`: ソート用
 
 #### ページネーション
+
 - `skip`と`limit`パラメータによるオフセットベースページネーション
 - デフォルト: limit=100
 
 ### セキュリティ考慮事項
 
 #### データ保護
-- UUIDによる予測困難な識別子
+
+- UUID による予測困難な識別子
 - ユーザー間データ分離
 - ソフトデリートによるデータ保護
 
 #### 入力検証
-- Pydanticによる型検証
+
+- Pydantic による型検証
 - 文字列長制限
-- SQLインジェクション対策（SQLAlchemy ORM使用）
+- SQL インジェクション対策（SQLAlchemy ORM 使用）
 
 ## 実装ファイル
 
 ### バックエンド構成
+
 ```
 dev/backend/
 ├── models/project.py          # Projectモデル定義
@@ -166,19 +184,22 @@ dev/backend/
 ```
 
 ### 依存関係
-- FastAPI: Webフレームワーク
+
+- FastAPI: Web フレームワーク
 - SQLAlchemy: ORM
 - Pydantic: データ検証
-- python-jose: JWT認証
+- python-jose: JWT 認証
 
 ## データベースマイグレーション
 
 ### 既存データベースの更新
+
 1. `users`テーブルに`is_deleted`カラム追加
 2. `projects`テーブルの新規作成（`is_deleted`カラム含む）
 3. インデックスの作成
 
-### SQL実行例
+### SQL 実行例
+
 ```sql
 -- usersテーブル更新
 ALTER TABLE users ADD COLUMN is_deleted BOOLEAN DEFAULT FALSE;
@@ -203,12 +224,14 @@ CREATE TABLE projects (
 ## 今後の拡張予定
 
 ### 機能拡張
+
 - プロジェクトの共有機能
 - プロジェクトのカテゴリ分類
 - プロジェクトの検索機能
 - 削除期限の設定
 
 ### パフォーマンス改善
+
 - レディスキャッシュの導入
 - 全文検索の実装
 - 非同期処理の活用
