@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from routes.auth import router as auth_router
+from utils.database import create_tables
 
 app = FastAPI()
 
@@ -12,7 +14,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# データベーステーブルの作成
+create_tables()
+
+# ルーターの追加
+app.include_router(auth_router, prefix="/api")
+
+
 @app.get("/api/hello")
 async def hello():
     return {"message": "Hello from FastAPI!"}
-
