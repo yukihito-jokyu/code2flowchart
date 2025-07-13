@@ -1,0 +1,165 @@
+.container {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem auto;
+  animation: iconBounce 0.5s ease-out;
+}
+
+@keyframes iconBounce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.iconContainer.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.iconContainer.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.iconContainer.warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.iconContainer.info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  stroke-width: 2.5;
+}
+
+.content {
+  margin-bottom: 2rem;
+}
+
+.title {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
+}
+
+.message {
+  color: #4a5568;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+  color: white;
+}
+
+.button.success {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.button.success:hover {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.button.error {
+  background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+}
+
+.button.error:hover {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 101, 101, 0.3);
+}
+
+.button.warning {
+  background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+}
+
+.button.warning:hover {
+  background: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(237, 137, 54, 0.3);
+}
+
+.button.info {
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+}
+
+.button.info:hover {
+  background: linear-gradient(135deg, #3182ce 0%, #2b77cb 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.3);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem 0;
+  }
+
+  .iconContainer {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .message {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    width: 100%;
+    padding: 0.875rem 1rem;
+  }
+}
