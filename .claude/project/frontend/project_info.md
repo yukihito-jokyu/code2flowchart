@@ -66,37 +66,54 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 
 ## ドキュメント
 
-### 認証機能
+### api
 
-- **Auth Feature**: `.claude/project/frontend/documents/auth_feature.md`
-- **Signup Page**: `.claude/project/frontend/documents/signup_page.md`
-- **Login Page**: `.claude/project/frontend/documents/login_page.md`
-- **Auth Routing**: `.claude/project/frontend/documents/auth_routing.md`
-- **Auth Navigation**: `.claude/project/frontend/documents/auth_navigation.md`
-- **Login API**: `.claude/project/frontend/documents/api/login_api.md`
-- **Auth Modal Integration**: `.claude/project/frontend/documents/feature/auth_modal_integration.md`
+- Login API
+  - `.claude/project/frontend/documents/api/login_api.md`
 
 ### Redux 状態管理
 
-- **Redux Architecture**: `.claude/project/frontend/documents/store/redux_architecture.md`
+- Redux Architecture
+  - `.claude/project/frontend/documents/store/redux_architecture.md`
 
 ### フィーチャー
 
-- **Flowchart Feature**: `.claude/project/frontend/documents/flowchart_feature.md`
+- Auth Feature
+  - `.claude/project/frontend/documents/feature/auth_feature.md`
+- Flowchart Feature
+  - `.claude/project/frontend/documents/feature/flowchart_feature.md`
+- Auth Modal Integration
+  - `.claude/project/frontend/documents/feature/auth_modal_integration.md`
 
 ### コンポーネント
 
-- **Modal System**: `.claude/project/frontend/documents/component/modal_system.md`
-- **Card Component**: `.claude/project/frontend/documents/card_component.md`
+- Modal System
+  - `.claude/project/frontend/documents/component/modal_system.md`
+- Card Component
+  - `.claude/project/frontend/documents/component/card_component.md`
 
 ### ページ
 
-- **Dashboard Page**: `.claude/project/frontend/documents/page/dashboard_page.md`
-- **Flowchart Page**: `.claude/project/frontend/documents/page/flowchart_page.md`
+- Signup Page
+  - `.claude/project/frontend/documents/page/signup_page.md`
+- Login Page
+  - `.claude/project/frontend/documents/page/login_page.md`
+- Dashboard Page
+  - `.claude/project/frontend/documents/page/dashboard_page.md`
+- Flowchart Page
+  - `.claude/project/frontend/documents/page/flowchart_page.md`
 
 ### ルーティング
 
-- **Flowchart Route**: `.claude/project/frontend/documents/route/flowchart_route.md`
+- Auth Routing
+  - `.claude/project/frontend/documents/route/auth_routing.md`
+- Flowchart Route
+  - `.claude/project/frontend/documents/route/flowchart_route.md`
+
+### その他
+
+- Auth Navigation
+  - `.claude/project/frontend/documents/auth_navigation.md`
 
 ## 開発コマンド
 

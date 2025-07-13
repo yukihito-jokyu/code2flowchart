@@ -25,22 +25,28 @@ dev/backend/
 ├── uv.lock
 ├── models/
 │   ├── __init__.py
-│   └── user.py                 # ユーザーモデル（SQLAlchemy）
+│   ├── user.py                 # ユーザーモデル（SQLAlchemy）
+│   └── project.py              # プロジェクトモデル（SQLAlchemy）
 ├── schemas/
 │   ├── __init__.py
-│   └── auth.py                 # 認証用のPydanticスキーマ
+│   ├── auth.py                 # 認証用のPydanticスキーマ
+│   └── project.py              # プロジェクト用のPydanticスキーマ
 ├── lib/
 │   └── auth/
 │       ├── __init__.py
 │       ├── utils.py            # JWT生成、パスワードハッシュ化
 │       ├── user_manager.py     # ユーザー管理機能
 │       └── middleware.py       # 認証ミドルウェア
+├── services/
+│   ├── __init__.py
+│   └── project_service.py      # プロジェクト管理ビジネスロジック
 ├── utils/
 │   ├── __init__.py
 │   └── database.py             # データベース接続設定
 └── routes/
     ├── __init__.py
-    └── auth.py                 # 認証APIエンドポイント
+    ├── auth.py                 # 認証APIエンドポイント
+    └── project.py              # プロジェクトAPIエンドポイント
 ```
 
 ## メインファイル詳細
@@ -56,6 +62,7 @@ dev/backend/
 - FastAPI アプリケーションのエントリーポイント
 - CORS 設定で React (localhost:5173) からのアクセスを許可
 - 認証ルーター (/api/auth) の統合
+- プロジェクトルーター (/api/projects) の統合
 - データベーステーブルの自動作成
 - API エンドポイント: `/api/hello` (Hello from FastAPI!メッセージを返却)
 
@@ -81,6 +88,17 @@ uv run uvicorn main:app --reload
 - `POST /api/auth/login`: ユーザーログイン（JWT トークン発行）
 - `POST /api/auth/logout`: ユーザーログアウト（トークン無効化）
 
+### プロジェクトエンドポイント
+
+- `POST /api/projects/`: プロジェクト作成
+- `GET /api/projects/`: プロジェクト一覧取得
+- `GET /api/projects/{project_uuid}`: プロジェクト詳細取得
+- `PUT /api/projects/{project_uuid}`: プロジェクト更新
+- `DELETE /api/projects/{project_uuid}`: プロジェクト削除（ソフト削除）
+- `POST /api/projects/{project_uuid}/restore`: プロジェクト復元
+- `DELETE /api/projects/{project_uuid}/hard`: プロジェクト完全削除
+- `GET /api/projects/deleted`: 削除済みプロジェクト一覧取得
+
 ## CORS 設定
 
 - React 開発サーバー (http://localhost:5173) からのアクセスを許可
@@ -92,27 +110,37 @@ uv run uvicorn main:app --reload
 ### データベース関連
 
 - database の setup について
-  - `.claude/project/backend/documents/database_setup.md`
+  - `.claude/project/database/database_setup.md`
 - データベーススキーマ設計について
-  - `.claude/project/backend/documents/database_schema.md`
+  - `.claude/project/database/database_schema.md`
 
-### 認証システム関連
+### モデル関連
 
-- 認証 API 実装の詳細
-  - `.claude/project/backend/documents/auth_api_implementation.md`
-- ユーザー管理システムの設計
-  - `.claude/project/backend/documents/user_management_system.md`
-- JWT 認証システムの実装
-  - `.claude/project/backend/documents/jwt_authentication_system.md`
-- API セキュリティの実装
-  - `.claude/project/backend/documents/api_security_implementation.md`
+- ユーザーモデルの設計
+  - `.claude/project/backend/documents/model/user_model.md`
+- プロジェクトモデルの設計
+  - `.claude/project/backend/documents/model/project_model.md`
 
-### プロジェクト関連
+### スキーマ関連
 
-- プロジェクト管理システム実装
-  - `.claude/project/backend/documents/project_management_system.md`
+- 認証スキーマの設計
+  - `.claude/project/backend/documents/schema/auth_schema.md`
+- プロジェクトスキーマの設計
+  - `.claude/project/backend/documents/schema/project_schema.md`
 
-### 認証システム構造変更
+### API ルート関連
 
-- 認証ディレクトリ構造変更とバグ修正 (Issue #19)
-  - `.claude/project/backend/documents/auth_directory_restructure.md`
+- 認証 API の実装
+  - `.claude/project/backend/documents/route/auth_route.md`
+- プロジェクト API の実装
+  - `.claude/project/backend/documents/route/project_route.md`
+
+### サービス関連
+
+- プロジェクトサービスの実装
+  - `.claude/project/backend/documents/service/project_service.md`
+
+### ユーティリティ関連
+
+- データベースユーティリティの実装
+  - `.claude/project/backend/documents/util/database_util.md`
