@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { NotificationModal } from '@/components';
+import { useNotification } from '@/hooks';
 
 import { useLogin } from '../hooks';
-import type { LoginFormData, LoginFormErrors } from '../types';
 import { validateLoginForm } from '../utils';
+
 import styles from './LoginForm.module.css';
+
+import type { LoginFormData, LoginFormErrors } from '../types';
 
 interface LoginFormProps {
   onSuccess?: () => void;
@@ -16,6 +22,8 @@ export const LoginForm = ({ onSuccess, onSignupClick }: LoginFormProps) => {
     password: '',
   });
   const [formErrors, setFormErrors] = useState<LoginFormErrors>({});
+  const navigate = useNavigate();
+  const { notification, showNotification, hideNotification } = useNotification();
 
   const { login, isLoading, error } = useLogin();
 
@@ -45,69 +53,87 @@ export const LoginForm = ({ onSuccess, onSignupClick }: LoginFormProps) => {
 
     const success = await login(formData);
     if (success) {
-      onSuccess?.();
+      showNotification('success', 'ログイン成功', 'ダッシュボードに移動します', {
+        confirmText: 'OK',
+        onConfirm: () => {
+          onSuccess?.();
+          navigate('/dashboard');
+        },
+      });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <h2 className={styles.title}>ログイン</h2>
+    <>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.title}>ログイン</h2>
 
-      <div className={styles.field}>
-        <label htmlFor="email" className={styles.label}>
-          メールアドレス
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className={styles.input}
-          placeholder="example@email.com"
-        />
-        {formErrors.email && <p className={styles.error}>{formErrors.email}</p>}
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="password" className={styles.label}>
-          パスワード
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          className={styles.input}
-          placeholder="パスワードを入力してください"
-        />
-        {formErrors.password && <p className={styles.error}>{formErrors.password}</p>}
-      </div>
-
-      {error && (
-        <div className={styles.errorContainer}>
-          <p className={styles.errorMessage}>{error.message}</p>
+        <div className={styles.field}>
+          <label htmlFor="email" className={styles.label}>
+            メールアドレス
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className={styles.input}
+            placeholder="example@email.com"
+          />
+          {formErrors.email && <p className={styles.error}>{formErrors.email}</p>}
         </div>
-      )}
 
-      <div className={styles.submitField}>
-        <button type="submit" disabled={isLoading} className={styles.button}>
-          {isLoading ? 'ログイン中...' : 'ログイン'}
-        </button>
-      </div>
+        <div className={styles.field}>
+          <label htmlFor="password" className={styles.label}>
+            パスワード
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            className={styles.input}
+            placeholder="パスワードを入力してください"
+          />
+          {formErrors.password && <p className={styles.error}>{formErrors.password}</p>}
+        </div>
 
-      {onSignupClick && (
-        <div className={styles.linkField}>
-          <div className={styles.divider}>
-            <span className={styles.dividerText}>または</span>
+        {error && (
+          <div className={styles.errorContainer}>
+            <p className={styles.errorMessage}>{error.message}</p>
           </div>
-          <p className={styles.linkText}>アカウントをお持ちでない方はこちら</p>
-          <button type="button" onClick={onSignupClick} className={styles.navButton}>
-            新規登録
+        )}
+
+        <div className={styles.submitField}>
+          <button type="submit" disabled={isLoading} className={styles.button}>
+            {isLoading ? 'ログイン中...' : 'ログイン'}
           </button>
         </div>
-      )}
-    </form>
+
+        {onSignupClick && (
+          <div className={styles.linkField}>
+            <div className={styles.divider}>
+              <span className={styles.dividerText}>または</span>
+            </div>
+            <p className={styles.linkText}>アカウントをお持ちでない方はこちら</p>
+            <button type="button" onClick={onSignupClick} className={styles.navButton}>
+              新規登録
+            </button>
+          </div>
+        )}
+      </form>
+
+      <NotificationModal
+        isOpen={notification.isOpen}
+        onClose={hideNotification}
+        type={notification.type}
+        title={notification.title}
+        message={notification.message}
+        confirmText={notification.confirmText}
+        onConfirm={notification.onConfirm}
+      />
+    </>
   );
 };
