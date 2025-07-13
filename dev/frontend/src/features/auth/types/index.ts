@@ -5,6 +5,7 @@ export type {
   LoginFormErrors,
   LoginRequest,
   LoginResponse,
+  LogoutResponse,
   SignupFormData,
   SignupRequest,
   SignupResponse,
