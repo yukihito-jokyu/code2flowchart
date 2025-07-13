@@ -26,11 +26,7 @@ export const Card: React.FC<CardProps> = ({
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.description}>{description}</p>
       <div className={styles.actions}>
-        <button
-          className={buttonClassName}
-          onClick={onButtonClick}
-          disabled={disabled}
-        >
+        <button className={buttonClassName} onClick={onButtonClick} disabled={disabled}>
           {buttonText}
         </button>
       </div>
