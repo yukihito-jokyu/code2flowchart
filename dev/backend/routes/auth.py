@@ -8,9 +8,9 @@ from schemas.auth import (
     LoginResponse,
     LogoutResponse,
 )
-from auth.user_manager import UserManager
-from auth.utils import create_access_token, blacklist_token
-from auth.middleware import get_current_user, security
+from lib.auth.user_manager import UserManager
+from lib.auth.utils import create_access_token, blacklist_token
+from lib.auth.middleware import get_current_user, security
 from utils.database import get_db
 from models.user import User
 

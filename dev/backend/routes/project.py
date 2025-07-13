@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from utils.database import get_db
-from auth.middleware import get_current_user
+from lib.auth.middleware import get_current_user
 from schemas.project import (
     ProjectCreate,
     ProjectUpdate,
