@@ -66,6 +66,10 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 
 ## ドキュメント
 
+### コーディング規約
+
+- `.claude/project/frontend/coding_role.md`
+
 ### api
 
 - Login API
