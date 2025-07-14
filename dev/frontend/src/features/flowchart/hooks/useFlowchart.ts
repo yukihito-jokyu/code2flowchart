@@ -27,9 +27,9 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      const updatedNodes = applyNodeChanges(changes, nodes as Node[]) as FlowchartNode[];
+      const updatedNodes = applyNodeChanges(changes, nodes) as FlowchartNode[];
       setNodesState(updatedNodes);
-      setNodes(updatedNodes as Node[]);
+      setNodes(updatedNodes);
     },
     [nodes, setNodes]
   );
@@ -66,7 +66,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
       const updatedNodes = [...nodes, newNode];
       setNodesState(updatedNodes);
-      setNodes(updatedNodes as Node[]);
+      setNodes(updatedNodes);
       return newNode.id;
     },
     [nodes, setNodes]
@@ -86,7 +86,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
           : node
       );
       setNodesState(updatedNodes);
-      setNodes(updatedNodes as Node[]);
+      setNodes(updatedNodes);
     },
     [nodes, setNodes]
   );
@@ -98,7 +98,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
       setNodesState(updatedNodes);
       setEdgesState(updatedEdges);
-      setNodes(updatedNodes as Node[]);
+      setNodes(updatedNodes);
       setEdges(updatedEdges);
 
       if (selectedNodeId === nodeId) {
@@ -153,7 +153,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
         const flowchartData: FlowchartData = JSON.parse(saved);
         setNodesState(flowchartData.nodes);
         setEdgesState(flowchartData.edges);
-        setNodes(flowchartData.nodes as Node[]);
+        setNodes(flowchartData.nodes);
         setEdges(flowchartData.edges);
       }
 

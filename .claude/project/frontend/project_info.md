@@ -12,6 +12,7 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 - **HTTP クライアント**: axios 1.9.0
 - **状態管理**: Redux Toolkit 2.8.2, React Redux 9.2.0
 - **ルーティング**: React Router DOM 7.6.3
+- **フローチャート**: @xyflow/react (React Flow)
 - **コード品質ツール**: ESLint 9.22.0, Prettier 3.6.2
 
 ## 設定詳細
@@ -64,16 +65,26 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 - **index.html**: Vite + React + TS のテンプレート
 - **main.tsx**: React StrictMode でアプリケーション起動
 
+### 主要機能
+
+- **認証システム**: ログイン・サインアップ・ログアウト機能
+- **プロジェクト管理**: プロジェクト作成・編集・削除・復元機能
+- **フローチャート機能**: 5 種類のノード（IF・FOR・WHILE・通常・不明）による視覚的フローチャート作成
+- **ダッシュボード**: プロジェクト一覧表示とナビゲーション
+
+### 技術的特徴
+
+- **型安全性**: TypeScript による完全な型チェック
+- **モダン UI**: CSS Modules + グラッシュモーフィズムデザイン
+- **状態管理**: Redux Toolkit による集中的な状態管理
+- **パフォーマンス**: React.memo、useMemo、useCallback による最適化
+- **開発体験**: ESLint + Prettier による一貫したコード品質
+
 ## ドキュメント
 
 ### コーディング規約
 
 - `.claude/project/frontend/coding_role.md`
-
-### api
-
-- Login API
-  - `.claude/project/frontend/documents/api/login_api.md`
 
 ### Redux 状態管理
 
@@ -83,11 +94,16 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 ### フィーチャー
 
 - Auth Feature
-  - `.claude/project/frontend/documents/feature/auth_feature.md`
+  - `.claude/project/frontend/documents/feature/auth/auth_feature.md`
+  - `.claude/project/frontend/documents/feature/auth/auth_modal_integration.md`
+  - `.claude/project/frontend/documents/feature/auth/login_api.md`
 - Flowchart Feature
-  - `.claude/project/frontend/documents/feature/flowchart_feature.md`
-- Auth Modal Integration
-  - `.claude/project/frontend/documents/feature/auth_modal_integration.md`
+  - `.claude/project/frontend/documents/feature/flowchart/flowchart_feature.md`
+  - `.claude/project/frontend/documents/feature/flowchart/flowchart_node_system.md`
+  - `.claude/project/frontend/documents/feature/flowchart/NodeToolbar.md`
+  - `.claude/project/frontend/documents/feature/flowchart/custom_node_components.md`
+- Project Management Feature
+  - `.claude/project/frontend/documents/feature/project/project_management_feature.md`
 
 ### コンポーネント
 
@@ -95,8 +111,6 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/component/modal_system.md`
 - Card Component
   - `.claude/project/frontend/documents/component/card_component.md`
-- Custom Node Components
-  - `.claude/project/frontend/documents/component/custom_node_components.md`
 
 ### ページ
 
@@ -108,6 +122,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/page/dashboard_page.md`
 - Flowchart Page
   - `.claude/project/frontend/documents/page/flowchart_page.md`
+- Projects Page
+  - `.claude/project/frontend/documents/page/projects_page.md`
 
 ### ルーティング
 
