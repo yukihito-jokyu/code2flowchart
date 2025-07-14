@@ -12,7 +12,15 @@ import '@xyflow/react/dist/style.css';
 
 import { FlowchartNode, FlowchartEdge } from '../types';
 
-import { IfNode, ForNode, WhileNode, UnknownNode, NormalNode } from './nodes';
+import {
+  IfNode,
+  UnknownNode,
+  NormalNode,
+  WhileStartNode,
+  WhileEndNode,
+  ForStartNode,
+  ForEndNode,
+} from './nodes';
 
 interface FlowchartCanvasProps {
   nodes: FlowchartNode[];
@@ -27,10 +35,12 @@ interface FlowchartCanvasProps {
 
 const nodeTypes = {
   if: IfNode,
-  for: ForNode,
-  while: WhileNode,
   unknown: UnknownNode,
   normal: NormalNode,
+  whileStart: WhileStartNode,
+  whileEnd: WhileEndNode,
+  forStart: ForStartNode,
+  forEnd: ForEndNode,
 };
 
 export const FlowchartCanvas = ({

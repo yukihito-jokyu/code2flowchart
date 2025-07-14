@@ -89,8 +89,10 @@ const FlowchartPageContent = ({
 
     const labelMap = {
       if: 'IF文',
-      for: 'FOR文',
-      while: 'WHILE文',
+      whileStart: 'WHILE開始',
+      whileEnd: 'WHILE終了',
+      forStart: 'FOR開始',
+      forEnd: 'FOR終了',
       unknown: '不明な関数',
       normal: '通常処理',
     };
