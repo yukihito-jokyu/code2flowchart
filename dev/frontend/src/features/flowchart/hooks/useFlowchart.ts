@@ -45,7 +45,7 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
 
   const onConnect = useCallback(
     (connection: Connection) => {
-      const updatedEdges = addEdge(connection, edges);
+      const updatedEdges = addEdge({ ...connection, type: "step", animated: true }, edges);
       setEdgesState(updatedEdges);
       setEdges(updatedEdges);
     },
