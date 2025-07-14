@@ -46,7 +46,7 @@ export const FlowchartCanvas = ({
   return (
     <div className={className} style={{ width: '100%', height: '100%' }}>
       <ReactFlow
-        nodes={nodes as Node[]}
+        nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
         onNodesChange={onNodesChange}
