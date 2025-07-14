@@ -1,4 +1,17 @@
 /* IF Node */
+.ifNodeWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 141px;
+  height: 141px;
+  transition: all 0.3s ease;
+}
+
+.hovered {
+  transform: scale(1.05);
+}
+
 .ifNode {
   width: 100px;
   height: 100px;
@@ -17,10 +30,6 @@
 .ifNode.selected {
   border-color: #ff6b6b;
   box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-}
-
-.ifNode:hover {
-  transform: rotate(45deg) scale(1.05);
 }
 
 .ifNodeContent {
@@ -157,8 +166,7 @@
 }
 
 .normalNode:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
 }
 
 .normalNodeContent {
