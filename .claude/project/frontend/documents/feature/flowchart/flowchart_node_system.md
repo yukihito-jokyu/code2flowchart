@@ -3,8 +3,10 @@
 ```
 dev/frontend/src/features/flowchart/components/nodes/
 ├── IfNode.tsx
-├── ForNode.tsx
-├── WhileNode.tsx
+├── WhileStartNode.tsx
+├── WhileEndNode.tsx
+├── ForStartNode.tsx
+├── ForEndNode.tsx
 ├── UnknownNode.tsx
 ├── NormalNode.tsx
 ├── Node.module.css
@@ -15,7 +17,7 @@ dev/frontend/src/features/flowchart/components/nodes/
 
 ## フローチャートノードシステム（Flowchart Node System）
 
-- フローチャートで使用される5種類のカスタムノードコンポーネント群。各ノードは異なる処理タイプを視覚的に表現し、@xyflow/reactと統合されている。
+- フローチャートで使用される7種類のカスタムノードコンポーネント群。各ノードは異なる処理タイプを視覚的に表現し、@xyflow/reactと統合されている。
 
 - 依存関係にあるファイル
   - `@xyflow/react` - Handle, Position, NodeProps 
@@ -44,21 +46,35 @@ dev/frontend/src/features/flowchart/components/nodes/
 - **アイコン**: 💎
 - **用途**: 条件分岐処理
 
-### 3. ForNode（繰り返しノード）
-- **形状**: 六角形 (clip-path使用)
-- **スタイル**: ピンクグラデーション背景
+### 3. WhileStartNode（While開始ノード）
+- **形状**: 台形（下辺が広い、120px × 80px）
+- **スタイル**: 青水色グラデーション背景（#4facfe → #00f2fe）
 - **ハンドル**: 上部入力、下部出力
 - **アイコン**: 🔄
-- **用途**: For文による繰り返し処理
+- **用途**: While文の開始点
 
-### 4. WhileNode（While繰り返しノード）
-- **形状**: 円形 (100px × 100px)
-- **スタイル**: 青水色グラデーション背景
+### 4. WhileEndNode（While終了ノード）
+- **形状**: 台形（上辺が広い、120px × 80px）
+- **スタイル**: 青水色グラデーション背景（#4facfe → #00f2fe）
 - **ハンドル**: 上部入力、下部出力
-- **アイコン**: ⭕
-- **用途**: While文による繰り返し処理
+- **アイコン**: 🔄
+- **用途**: While文の終了点
 
-### 5. UnknownNode（不明ノード）
+### 5. ForStartNode（For開始ノード）
+- **形状**: 台形（下辺が広い、120px × 80px）
+- **スタイル**: ピンクグラデーション背景（#f093fb → #f5576c）
+- **ハンドル**: 上部入力、下部出力
+- **アイコン**: 🔁
+- **用途**: For文の開始点
+
+### 6. ForEndNode（For終了ノード）
+- **形状**: 台形（上辺が広い、120px × 80px）
+- **スタイル**: ピンクグラデーション背景（#f093fb → #f5576c）
+- **ハンドル**: 上部入力、下部出力
+- **アイコン**: 🔁
+- **用途**: For文の終了点
+
+### 7. UnknownNode（不明ノード）
 - **形状**: 角丸四角形 (100px × 100px)
 - **スタイル**: オレンジグラデーション背景、パルスアニメーション
 - **ハンドル**: 上部入力、下部出力
@@ -95,7 +111,7 @@ dev/frontend/src/features/flowchart/components/nodes/
 
 ### FlowchartNodeType
 ```typescript
-export type FlowchartNodeType = 'if' | 'for' | 'while' | 'unknown' | 'normal';
+export type FlowchartNodeType = 'if' | 'whileStart' | 'whileEnd' | 'forStart' | 'forEnd' | 'unknown' | 'normal';
 ```
 
 ### FlowchartNodeData
@@ -119,8 +135,10 @@ export interface FlowchartNode extends Node {
 ```typescript
 const nodeTypes = {
   if: IfNode,
-  for: ForNode,
-  while: WhileNode,
+  whileStart: WhileStartNode,
+  whileEnd: WhileEndNode,
+  forStart: ForStartNode,
+  forEnd: ForEndNode,
   unknown: UnknownNode,
   normal: NormalNode,
 };
@@ -130,12 +148,35 @@ const nodeTypes = {
 ```typescript
 const nodeTypes = [
   { type: 'if', label: 'IF文', icon: '💎' },
-  { type: 'for', label: 'FOR文', icon: '🔄' },
-  { type: 'while', label: 'WHILE文', icon: '⭕' },
+  { type: 'whileStart', label: 'WHILE開始', icon: '🔄' },
+  { type: 'whileEnd', label: 'WHILE終了', icon: '🔄' },
+  { type: 'forStart', label: 'FOR開始', icon: '🔁' },
+  { type: 'forEnd', label: 'FOR終了', icon: '🔁' },
   { type: 'unknown', label: '不明', icon: '⚠️' },
   { type: 'normal', label: '通常', icon: '📋' },
 ];
 ```
+
+## 台形ノードの実装詳細
+
+### CSS clip-path による台形形状
+```css
+/* 開始ノード（下辺が広い） */
+.whileStartNode, .forStartNode {
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+}
+
+/* 終了ノード（上辺が広い） */
+.whileEndNode, .forEndNode {
+  clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+}
+```
+
+### ループ構造の視覚化
+- **設計思想**: 従来の単一ノードから開始・終了ペアへの変更
+- **視覚的効果**: 台形の向きでループの範囲を明確に表現
+- **色分け**: While（青系統）、For（ピンク系統）での種類区別
+- **サイズ最適化**: 横幅を120pxに拡張し、視認性を向上
 
 ## 技術的特徴
 
@@ -164,11 +205,11 @@ const nodeTypes = [
 // ノードの作成
 const newNode: FlowchartNode = {
   id: 'node-1',
-  type: 'if',
+  type: 'whileStart',
   position: { x: 100, y: 100 },
   data: {
-    label: '条件判定',
-    type: 'if',
+    label: 'WHILE開始',
+    type: 'whileStart',
   },
 };
 
