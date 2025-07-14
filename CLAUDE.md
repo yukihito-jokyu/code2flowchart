@@ -9,10 +9,16 @@
   - `README.md`
 - backend プロジェクトの基本情報
   - `.claude/project/backend/project_info.md`
+- backend のアーキテクチャ情報
+  - `.claude/project/backend/project_info.md`
+- backend のコーディング規約
+  - `.claude/project/backend/coding_role.md`
 - frontend プロジェクトの基本情報
   - `.claude/project/frontend/project_info.md`
 - frontend のアーキテクチャ情報
   - `.claude/project/frontend/architecture.md`
+- frontend のコーディング規約
+  - `.claude/project/frontend/coding_role.md`
 
 # ディレクトリ構造
 

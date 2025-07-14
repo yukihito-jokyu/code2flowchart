@@ -107,6 +107,10 @@ uv run uvicorn main:app --reload
 
 ## Backend のドキュメント
 
+### コーディング規約
+
+- `.claude/project/backend/coding_role.md`
+
 ### データベース関連
 
 - database の setup について
