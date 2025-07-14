@@ -1,6 +1,13 @@
 import { Node, Edge } from '@xyflow/react';
 
-export type FlowchartNodeType = 'if' | 'for' | 'while' | 'unknown' | 'normal';
+export type FlowchartNodeType =
+  | 'if'
+  | 'whileStart'
+  | 'whileEnd'
+  | 'forStart'
+  | 'forEnd'
+  | 'unknown'
+  | 'normal';
 
 export interface FlowchartNodeData extends Record<string, unknown> {
   label: string;

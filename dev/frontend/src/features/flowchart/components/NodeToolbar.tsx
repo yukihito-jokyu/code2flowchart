@@ -15,8 +15,10 @@ export const NodeToolbar = ({
 }: NodeToolbarProps) => {
   const nodeTypes: { type: FlowchartNodeType; label: string; icon: string }[] = [
     { type: 'if', label: 'IF文', icon: '💎' },
-    { type: 'for', label: 'FOR文', icon: '🔄' },
-    { type: 'while', label: 'WHILE文', icon: '⭕' },
+    { type: 'whileStart', label: 'WHILE開始', icon: '🔄' },
+    { type: 'whileEnd', label: 'WHILE終了', icon: '🔄' },
+    { type: 'forStart', label: 'FOR開始', icon: '🔁' },
+    { type: 'forEnd', label: 'FOR終了', icon: '🔁' },
     { type: 'unknown', label: '不明', icon: '⚠️' },
     { type: 'normal', label: '通常', icon: '📋' },
   ];

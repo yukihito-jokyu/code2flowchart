@@ -40,68 +40,6 @@
   font-size: 12px;
 }
 
-/* FOR Node */
-.forNode {
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  border: 2px solid #e91e63;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-}
-
-.forNode.selected {
-  border-color: #ff6b6b;
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-}
-
-.forNode:hover {
-  transform: scale(1.05);
-}
-
-.forNodeContent {
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-  padding: 10px;
-}
-
-/* WHILE Node */
-.whileNode {
-  width: 100px;
-  height: 100px;
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  border: 2px solid #00bcd4;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-}
-
-.whileNode.selected {
-  border-color: #ff6b6b;
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-}
-
-.whileNode:hover {
-  transform: scale(1.05);
-}
-
-.whileNodeContent {
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: 12px;
-}
 
 /* UNKNOWN Node */
 .unknownNode {
@@ -177,6 +115,134 @@
   padding: 10px;
 }
 
+/* WHILE Start Node */
+.whileStartNode {
+  width: 120px;
+  height: 80px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: 2px solid #00bcd4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+}
+
+.whileStartNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.whileStartNode:hover {
+  transform: scale(1.05);
+}
+
+.whileStartNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+}
+
+/* WHILE End Node */
+.whileEndNode {
+  width: 120px;
+  height: 80px;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: 2px solid #00bcd4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+}
+
+.whileEndNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.whileEndNode:hover {
+  transform: scale(1.05);
+}
+
+.whileEndNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+}
+
+/* FOR Start Node */
+.forStartNode {
+  width: 120px;
+  height: 80px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: 2px solid #e91e63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+}
+
+.forStartNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.forStartNode:hover {
+  transform: scale(1.05);
+}
+
+.forStartNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+}
+
+/* FOR End Node */
+.forEndNode {
+  width: 120px;
+  height: 80px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: 2px solid #e91e63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+}
+
+.forEndNode.selected {
+  border-color: #ff6b6b;
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.forEndNode:hover {
+  transform: scale(1.05);
+}
+
+.forEndNodeContent {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 10px;
+}
+
 /* Common node content styles */
 .nodeIcon {
   font-size: 20px;
@@ -192,9 +258,14 @@
   max-width: 80px;
 }
 
-.forNodeContent .nodeLabel,
-.whileNodeContent .nodeLabel,
 .unknownNodeContent .nodeLabel {
+  max-width: 70px;
+}
+
+.whileStartNodeContent .nodeLabel,
+.whileEndNodeContent .nodeLabel,
+.forStartNodeContent .nodeLabel,
+.forEndNodeContent .nodeLabel {
   max-width: 70px;
 }
 

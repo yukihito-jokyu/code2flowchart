@@ -5,25 +5,25 @@ import styles from './Node.module.css';
 
 import type { FlowchartNodeData } from '../../types/flowchart';
 
-interface ForNodeProps {
+interface WhileStartNodeProps {
   data: FlowchartNodeData;
   selected?: boolean;
 }
 
-const ForNode = memo(({ data, selected }: ForNodeProps) => {
+const WhileStartNode = memo(({ data, selected }: WhileStartNodeProps) => {
   return (
-    <div className={`${styles.forNode} ${selected ? styles.selected : ''}`}>
+    <div className={`${styles.whileStartNode} ${selected ? styles.selected : ''}`}>
       <Handle type="target" position={Position.Top} />
-      <div className={styles.forNodeContent}>
+      <div className={styles.whileStartNodeContent}>
         <div className={styles.nodeIcon}>🔄</div>
         <div className={styles.nodeLabel}>{data.label}</div>
-        <div className={styles.nodeType}>FOR</div>
+        <div className={styles.nodeType}>WHILE START</div>
       </div>
       <Handle type="source" position={Position.Bottom} />
     </div>
   );
 });
 
-ForNode.displayName = 'ForNode';
+WhileStartNode.displayName = 'WhileStartNode';
 
-export default ForNode;
+export default WhileStartNode;
