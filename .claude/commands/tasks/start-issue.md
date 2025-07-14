@@ -9,10 +9,12 @@ Issue #$ARGUMENT の内容を確認して作業着手してください。
 - backend のタスクの場合、ドキュメント作成タスクは`.claude/commands/tasks/make-backend-documents.md`を参照してください。
 - 作成したドキュメントは`.claude/project/*/project_info.md`にドキュメントのタイトルとドキュメントまでの Path を追記してください。
 - タスクが 3 回連続で失敗した場合、失敗した旨をユーザーに伝え、支持を仰いでください。
+- frontend のコーディング規約は`.claude/project/frontend/coding_role.md`にあります。
+- backend のコーディング規約は`.claude/project/backend/coding_role.md`にあります。
 
 ## 作業手順
 
-- Issue の情報からどのディレクトリにどのように作成すればよいかドキュメントを参考に手順を考察してください。
+- Issue の情報からどのディレクトリにどのように作成すればよいかドキュメントやコーディング規約を参考に手順を考察してください。
 - ユーザーに作業手順をレビューしてもらってください。
 - どのように作業するかを Issue コメントに箇条書きで入力してください。
 - 最新の`main` ブランチから Issue 用のブランチを切って作業開始してください。
