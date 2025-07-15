@@ -5,6 +5,8 @@ src/features/flowchart/
 ├── components/
 │   ├── FlowchartCanvas.tsx
 │   ├── NodeToolbar.tsx
+│   ├── NodeDetailModal.tsx
+│   ├── NodeDetailModal.module.css
 │   ├── nodes/
 │   │   ├── IfNode.tsx
 │   │   ├── ForNode.tsx
@@ -32,6 +34,7 @@ src/features/flowchart/
 - **主要コンポーネント**:
   - `FlowchartCanvas`: フローチャートの描画キャンバス（ReactFlow コンポーネントのラッパー）
   - `NodeToolbar`: ノード追加・保存・クリア機能を提供するツールバー
+  - `NodeDetailModal`: ノードクリック時の詳細情報表示モーダル
   - **カスタムノードコンポーネント**:
     - `IfNode`: IF文を表現するひし形ノード
     - `ForNode`: FOR文を表現する六角形ノード
@@ -45,21 +48,34 @@ src/features/flowchart/
     - **戻り値**: ノード・エッジ操作、保存・読み込み、状態管理の各種関数と状態
 
 - **型定義**:
-  - `FlowchartNodeType`: ノードの種類（'if' | 'for' | 'while' | 'unknown' | 'normal'）
+  - `FlowchartNodeType`: ノードの種類（'if' | 'whileStart' | 'whileEnd' | 'forStart' | 'forEnd' | 'unknown' | 'normal'）
   - `FlowchartNodeData`: ノードのデータ構造（Record<string, unknown>を継承）
+    - `label: string`: ノードのラベル
+    - `type: FlowchartNodeType`: ノードの種類
+    - `title: string`: ノードのタイトル（詳細表示用）
+    - `code: string`: ノードのコード（詳細表示用）
+    - `info: string`: ノードの説明（詳細表示用）
   - `FlowchartNode`: React Flowのノードを拡張したフローチャート用ノード
   - `FlowchartEdge`: React Flowのエッジ型のエイリアス
   - `FlowchartData`: フローチャート全体のデータ構造
   - `FlowchartState`: フローチャート機能の状態管理用型
 
 - **機能詳細**:
-  - **ノード操作**: 5種類のカスタムノード（IF・FOR・WHILE・不明・通常）の追加・削除・移動
-    - `addNode`: 指定した位置に新しいノードを追加
+  - **ノード操作**: 7種類のカスタムノード（IF・WHILE開始・WHILE終了・FOR開始・FOR終了・不明・通常）の追加・削除・移動
+    - `addNode`: 指定した位置に新しいノードを追加（拡張されたFlowchartNodeDataに対応）
     - `updateNodeLabel`: ノードのラベルを更新
     - `deleteNode`: ノードと関連するエッジを削除
   - **エッジ操作**: ノード間の接続線の描画・削除
     - `onConnect`: ノード間の接続を作成
     - `onEdgesChange`: エッジの変更を処理
+  - **ノード詳細表示**: 
+    - ノードクリック時にNodeDetailModalを表示
+    - title、code、infoの詳細情報を表示
+    - ノードタイプに応じた色分け表示
+  - **ダミーデータ機能**: 
+    - 開発・テスト用のダミーデータをuseFlowchart.tsにハードコーディング
+    - コメントアウトで簡単に無効化可能
+    - 17個のノードと対応するエッジのサンプルデータ
   - **保存・読み込み機能**: 
     - `saveFlowchart`: 現在のフローチャートデータを保存（一時的にローカルストレージ使用）
     - `loadFlowchart`: 保存されたフローチャートデータを読み込み

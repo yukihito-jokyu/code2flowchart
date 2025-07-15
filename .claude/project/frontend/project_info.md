@@ -119,6 +119,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/component/card_component.md`
 - Code Input Component
   - `.claude/project/frontend/documents/component/code_input_component.md`
+- Node Detail Modal Component
+  - `.claude/project/frontend/documents/component/node_detail_modal.md`
 
 ### ページ
 
