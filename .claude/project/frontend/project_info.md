@@ -90,6 +90,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 
 - Redux Architecture
   - `.claude/project/frontend/documents/store/redux_architecture.md`
+- Project Code Store
+  - `.claude/project/frontend/documents/store/project_code_store.md`
 
 ### フィーチャー
 
@@ -104,6 +106,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/feature/flowchart/custom_node_components.md`
 - Project Management Feature
   - `.claude/project/frontend/documents/feature/project/project_management_feature.md`
+- Project Code Feature
+  - `.claude/project/frontend/documents/feature/project_code/project_code_feature.md`
 
 ### コンポーネント
 
@@ -111,6 +115,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/component/modal_system.md`
 - Card Component
   - `.claude/project/frontend/documents/component/card_component.md`
+- Code Input Component
+  - `.claude/project/frontend/documents/component/code_input_component.md`
 
 ### ページ
 
@@ -131,6 +137,11 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/route/auth_routing.md`
 - Flowchart Route
   - `.claude/project/frontend/documents/route/flowchart_route.md`
+
+### API
+
+- Project Code API
+  - `.claude/project/frontend/documents/api/project_code_api.md`
 
 ### その他
 

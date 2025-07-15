@@ -2,6 +2,7 @@ import { ReactFlowProvider, Node } from '@xyflow/react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
+import { CodeInput } from '@/components/CodeInput';
 import {
   FlowchartCanvas,
   NodeToolbar,
@@ -16,6 +17,7 @@ export const FlowchartPage = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const { showNotification } = useNotification();
   const [showInstructions, setShowInstructions] = useState(true);
+  const [showCodeInput, setShowCodeInput] = useState(false);
 
   if (!projectId) {
     return (
@@ -32,6 +34,8 @@ export const FlowchartPage = () => {
         showNotification={showNotification}
         showInstructions={showInstructions}
         setShowInstructions={setShowInstructions}
+        showCodeInput={showCodeInput}
+        setShowCodeInput={setShowCodeInput}
       />
     </ReactFlowProvider>
   );
@@ -42,6 +46,8 @@ interface FlowchartPageContentProps {
   showNotification: (type: 'success' | 'error', title: string, message: string) => void;
   showInstructions: boolean;
   setShowInstructions: (show: boolean) => void;
+  showCodeInput: boolean;
+  setShowCodeInput: (show: boolean) => void;
 }
 
 const FlowchartPageContent = ({
@@ -49,6 +55,8 @@ const FlowchartPageContent = ({
   showNotification,
   showInstructions,
   setShowInstructions,
+  showCodeInput,
+  setShowCodeInput,
 }: FlowchartPageContentProps) => {
   const {
     nodes,
@@ -151,6 +159,14 @@ const FlowchartPageContent = ({
             <span>プロジェクトID: {projectId}</span>
           </div>
         </div>
+        <div className={styles.headerRight}>
+          <button
+            onClick={() => setShowCodeInput(!showCodeInput)}
+            className={styles.codeToggleButton}
+          >
+            📝 コード入力
+          </button>
+        </div>
       </header>
 
       {showInstructions && (
@@ -226,6 +242,12 @@ const FlowchartPageContent = ({
           />
         </div>
       </div>
+
+      <CodeInput
+        projectUuid={projectId}
+        isVisible={showCodeInput}
+        onToggle={() => setShowCodeInput(false)}
+      />
     </div>
   );
 };
