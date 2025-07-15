@@ -5,7 +5,7 @@ import {
   ProjectCodeCreate,
   ProjectCodeUpdate,
   ProjectCodeResponse,
-} from '@/types/projectCode';
+} from '../types/projectCode';
 
 const API_BASE_URL = 'http://localhost:8000/api';
 

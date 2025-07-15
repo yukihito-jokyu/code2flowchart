@@ -2,13 +2,13 @@ import { ReactFlowProvider, Node } from '@xyflow/react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { CodeInput } from '@/components/CodeInput';
 import {
   FlowchartCanvas,
   NodeToolbar,
   useFlowchart,
   FlowchartNodeType,
 } from '@/features/flowchart';
+import { CodeInput } from '@/features/projectCode';
 import { useNotification } from '@/hooks/useNotification';
 
 import styles from './FlowchartPage.module.css';
