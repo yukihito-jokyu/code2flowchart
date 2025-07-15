@@ -26,8 +26,8 @@ const IfNode = memo(({ data, selected }: IfNodeProps) => {
         </div>
       </div>
       <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Right} id="true" />
-      <Handle type="source" position={Position.Bottom} id="false" />
+      <Handle type="source" position={Position.Right} id="false" />
+      <Handle type="source" position={Position.Bottom} id="true" />
     </div>
   );
 });
