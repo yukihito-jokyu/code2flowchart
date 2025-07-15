@@ -12,6 +12,9 @@ export type FlowchartNodeType =
 export interface FlowchartNodeData extends Record<string, unknown> {
   label: string;
   type: FlowchartNodeType;
+  title: string;
+  code: string;
+  info: string;
 }
 
 export interface FlowchartNode extends Node {
