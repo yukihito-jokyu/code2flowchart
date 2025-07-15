@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionContent {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.codeContent {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+  margin: 0;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.typeTag {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.typeTag.normal {
+  background: rgba(74, 144, 226, 0.2);
+  color: rgba(74, 144, 226, 1);
+  border: 1px solid rgba(74, 144, 226, 0.3);
+}
+
+.typeTag.if {
+  background: rgba(255, 193, 7, 0.2);
+  color: rgba(255, 193, 7, 1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.typeTag.whileStart,
+.typeTag.whileEnd {
+  background: rgba(220, 53, 69, 0.2);
+  color: rgba(220, 53, 69, 1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.typeTag.forStart,
+.typeTag.forEnd {
+  background: rgba(40, 167, 69, 0.2);
+  color: rgba(40, 167, 69, 1);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.typeTag.unknown {
+  background: rgba(108, 117, 125, 0.2);
+  color: rgba(108, 117, 125, 1);
+  border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+/* スクロールバーのスタイル */
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

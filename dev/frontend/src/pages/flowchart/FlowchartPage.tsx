@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import {
   FlowchartCanvas,
   NodeToolbar,
+  NodeDetailModal,
   useFlowchart,
   FlowchartNodeType,
 } from '@/features/flowchart';
@@ -18,6 +19,7 @@ export const FlowchartPage = () => {
   const { showNotification } = useNotification();
   const [showInstructions, setShowInstructions] = useState(true);
   const [showCodeInput, setShowCodeInput] = useState(false);
+  const [showNodeDetail, setShowNodeDetail] = useState(false);
 
   if (!projectId) {
     return (
@@ -36,6 +38,8 @@ export const FlowchartPage = () => {
         setShowInstructions={setShowInstructions}
         showCodeInput={showCodeInput}
         setShowCodeInput={setShowCodeInput}
+        showNodeDetail={showNodeDetail}
+        setShowNodeDetail={setShowNodeDetail}
       />
     </ReactFlowProvider>
   );
@@ -48,6 +52,8 @@ interface FlowchartPageContentProps {
   setShowInstructions: (show: boolean) => void;
   showCodeInput: boolean;
   setShowCodeInput: (show: boolean) => void;
+  showNodeDetail: boolean;
+  setShowNodeDetail: (show: boolean) => void;
 }
 
 const FlowchartPageContent = ({
@@ -57,6 +63,8 @@ const FlowchartPageContent = ({
   setShowInstructions,
   showCodeInput,
   setShowCodeInput,
+  showNodeDetail,
+  setShowNodeDetail,
 }: FlowchartPageContentProps) => {
   const {
     nodes,
@@ -125,11 +133,18 @@ const FlowchartPageContent = ({
 
   const handleNodeClick = (_event: React.MouseEvent, node: Node) => {
     setSelectedNodeId(node.id);
+    setShowNodeDetail(true);
   };
 
   const handlePaneClick = () => {
     setSelectedNodeId(null);
   };
+
+  const handleCloseNodeDetail = () => {
+    setShowNodeDetail(false);
+  };
+
+  const selectedNode = nodes.find((node) => node.id === selectedNodeId);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -247,6 +262,12 @@ const FlowchartPageContent = ({
         projectUuid={projectId}
         isVisible={showCodeInput}
         onToggle={() => setShowCodeInput(false)}
+      />
+
+      <NodeDetailModal
+        isOpen={showNodeDetail}
+        onClose={handleCloseNodeDetail}
+        nodeData={selectedNode?.data || null}
       />
     </div>
   );
