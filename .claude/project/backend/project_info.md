@@ -124,6 +124,8 @@ uv run uvicorn main:app --reload
   - `.claude/project/backend/documents/model/user_model.md`
 - プロジェクトモデルの設計
   - `.claude/project/backend/documents/model/project_model.md`
+- プロジェクトコードモデルの設計
+  - `.claude/project/backend/documents/model/project_code_model.md`
 
 ### スキーマ関連
 
@@ -131,6 +133,8 @@ uv run uvicorn main:app --reload
   - `.claude/project/backend/documents/schema/auth_schema.md`
 - プロジェクトスキーマの設計
   - `.claude/project/backend/documents/schema/project_schema.md`
+- プロジェクトコードスキーマの設計
+  - `.claude/project/backend/documents/schema/project_code_schema.md`
 
 ### API ルート関連
 
@@ -138,11 +142,15 @@ uv run uvicorn main:app --reload
   - `.claude/project/backend/documents/route/auth_route.md`
 - プロジェクト API の実装
   - `.claude/project/backend/documents/route/project_route.md`
+- プロジェクトコード API の実装
+  - `.claude/project/backend/documents/route/project_code_route.md`
 
 ### サービス関連
 
 - プロジェクトサービスの実装
   - `.claude/project/backend/documents/service/project_service.md`
+- プロジェクトコードサービスの実装
+  - `.claude/project/backend/documents/service/project_code_service.md`
 
 ### ユーティリティ関連
 

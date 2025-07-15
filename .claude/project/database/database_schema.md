@@ -164,7 +164,47 @@ CREATE TABLE nodes (
 - `unknown`: 未知の関数など
 - `normal`: その他一般処理
 
-### 5. edges テーブル
+### 5. project_codes テーブル
+
+プロジェクトレベルで独立したコードを管理するテーブル。既存のcodesテーブルがノードと紐づくコードを管理するのに対し、こちらはノードと紐づかない独立したコードを管理します。
+
+```sql
+CREATE TABLE project_codes (
+    uuid CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+    project_uuid CHAR(36) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    code_content TEXT NOT NULL,
+    language VARCHAR(50) DEFAULT 'python',
+    description TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (project_uuid) REFERENCES projects(uuid) ON DELETE CASCADE,
+    INDEX idx_project_codes_project_uuid (project_uuid),
+    INDEX idx_project_codes_created_at (created_at),
+    INDEX idx_project_codes_is_deleted (is_deleted),
+    INDEX idx_project_codes_language (language)
+);
+```
+
+**フィールド説明:**
+
+- `uuid`: プロジェクトコードの一意識別子（UUID）
+- `project_uuid`: 所属プロジェクトの UUID（外部キー）
+- `title`: コードのタイトル
+- `code_content`: 実際のコード内容
+- `language`: プログラミング言語（デフォルト: python）
+- `description`: コードの説明
+- `is_deleted`: 論理削除フラグ（デフォルト: FALSE）
+- `created_at`: 作成日時
+- `updated_at`: 最終更新日時
+
+**codesテーブルとの違い:**
+
+- **codes**: ノードと紐づくコード（nodes.code_uuidで参照される）
+- **project_codes**: プロジェクトレベルの独立したコード（ノードと紐づかない）
+
+### 6. edges テーブル
 
 ノード間の接続情報を保存するテーブル。
 
