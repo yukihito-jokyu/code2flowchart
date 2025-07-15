@@ -111,13 +111,6 @@ uv run uvicorn main:app --reload
 
 - `.claude/project/backend/coding_role.md`
 
-### データベース関連
-
-- database の setup について
-  - `.claude/project/database/database_setup.md`
-- データベーススキーマ設計について
-  - `.claude/project/database/database_schema.md`
-
 ### モデル関連
 
 - ユーザーモデルの設計
