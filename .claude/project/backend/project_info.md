@@ -119,6 +119,8 @@ uv run uvicorn main:app --reload
   - `.claude/project/backend/documents/model/project_model.md`
 - プロジェクトコードモデルの設計
   - `.claude/project/backend/documents/model/project_code_model.md`
+- ノードモデルの設計
+  - `.claude/project/backend/documents/model/node_model.md`
 
 ### スキーマ関連
 
@@ -128,6 +130,8 @@ uv run uvicorn main:app --reload
   - `.claude/project/backend/documents/schema/project_schema.md`
 - プロジェクトコードスキーマの設計
   - `.claude/project/backend/documents/schema/project_code_schema.md`
+- ノードスキーマの設計
+  - `.claude/project/backend/documents/schema/node_schema.md`
 
 ### API ルート関連
 

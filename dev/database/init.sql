@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS nodes (
     title VARCHAR(255) NOT NULL,
     code_snippet TEXT,
     info TEXT,
-    type ENUM('if', 'for', 'while', 'unknown', 'normal') DEFAULT 'normal',
+    type ENUM('if', 'for_start', 'for_end', 'while_start', 'while_end', 'unknown', 'normal') DEFAULT 'normal',
     position_x INT DEFAULT 0,
     position_y INT DEFAULT 0,
     is_deleted BOOLEAN DEFAULT FALSE,

@@ -15,7 +15,7 @@ CREATE TABLE nodes (
     title VARCHAR(255) NOT NULL,
     code_snippet TEXT,
     info TEXT,
-    type ENUM('if', 'for', 'while', 'unknown', 'normal') DEFAULT 'normal',
+    type ENUM('if', 'for_start', 'for_end', 'while_start', 'while_end', 'unknown', 'normal') DEFAULT 'normal',
     position_x INT DEFAULT 0,
     position_y INT DEFAULT 0,
     is_deleted BOOLEAN DEFAULT FALSE,
@@ -53,8 +53,10 @@ CREATE TABLE nodes (
 | タイプ | 説明 | 用途 |
 |--------|------|------|
 | `if` | if文 | 条件分岐処理 |
-| `for` | for文 | 繰り返し処理 |
-| `while` | while文 | 条件繰り返し処理 |
+| `for_start` | for文開始 | 繰り返し処理の開始点 |
+| `for_end` | for文終了 | 繰り返し処理の終了点 |
+| `while_start` | while文開始 | 条件繰り返し処理の開始点 |
+| `while_end` | while文終了 | 条件繰り返し処理の終了点 |
 | `unknown` | 未知の関数など | 外部関数や不明な処理 |
 | `normal` | その他一般処理 | 通常の処理ステップ |
 

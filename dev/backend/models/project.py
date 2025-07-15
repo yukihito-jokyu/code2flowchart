@@ -19,6 +19,7 @@ class Project(Base):
     # リレーションシップ
     user = relationship("User", back_populates="projects")
     project_codes = relationship("ProjectCode", back_populates="project")
+    nodes = relationship("Node", back_populates="project")
 
     def __repr__(self):
         return f"<Project(uuid='{self.uuid}', name='{self.name}', user_uuid='{self.user_uuid}')>"
