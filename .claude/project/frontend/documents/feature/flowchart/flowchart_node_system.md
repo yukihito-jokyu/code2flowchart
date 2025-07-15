@@ -27,7 +27,7 @@ dev/frontend/src/features/flowchart/components/nodes/
   - `./Node.module.css` - 共通スタイル
 
 - props の型と説明
-  - `data: FlowchartNodeData` - ノードのデータ（label, type を含む）
+  - `data: FlowchartNodeData` - ノードのデータ（label, title, code, info を含む）
   - `selected?: boolean` - ノードの選択状態
   - その他 NodeProps に準拠
 
@@ -138,7 +138,9 @@ export type FlowchartNodeType =
 ```typescript
 export interface FlowchartNodeData extends Record<string, unknown> {
   label: string;
-  type: FlowchartNodeType;
+  title: string;
+  code: string;
+  info: string;
 }
 ```
 
@@ -146,6 +148,9 @@ export interface FlowchartNodeData extends Record<string, unknown> {
 
 ```typescript
 export interface FlowchartNode extends Node {
+  id: string;
+  position: { x: number; y: number };
+  type: FlowchartNodeType;
   data: FlowchartNodeData;
 }
 ```
