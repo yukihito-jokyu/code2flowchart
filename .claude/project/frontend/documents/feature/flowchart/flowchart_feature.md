@@ -7,6 +7,12 @@ src/features/flowchart/
 │   ├── NodeToolbar.tsx
 │   ├── NodeDetailModal.tsx
 │   ├── NodeDetailModal.module.css
+│   ├── devTools/
+│   │   ├── DevTools.tsx
+│   │   ├── ChangeLogger.tsx
+│   │   ├── NodeInspector.tsx
+│   │   ├── ViewportLogger.tsx
+│   │   └── DevTools.css
 │   ├── nodes/
 │   │   ├── IfNode.tsx
 │   │   ├── ForNode.tsx
@@ -35,6 +41,11 @@ src/features/flowchart/
   - `FlowchartCanvas`: フローチャートの描画キャンバス（ReactFlow コンポーネントのラッパー）
   - `NodeToolbar`: ノード追加・保存・クリア機能を提供するツールバー
   - `NodeDetailModal`: ノードクリック時の詳細情報表示モーダル
+  - **開発用デバッグツール**:
+    - `DevTools`: 開発時のデバッグツール群を管理（ノード監視、変更ログ、ビューポート情報）
+    - `ChangeLogger`: ノード変更をリアルタイムで記録・表示
+    - `NodeInspector`: ノード詳細情報の表示
+    - `ViewportLogger`: ビューポートの変換情報を表示
   - **カスタムノードコンポーネント**:
     - `IfNode`: IF文を表現するひし形ノード
     - `ForNode`: FOR文を表現する六角形ノード
@@ -85,6 +96,11 @@ src/features/flowchart/
     - `isLoading`: 保存・読み込み処理中の状態
     - `error`: エラー状態の管理
   - **UI機能**: ミニマップ、コントロールパネル、背景グリッド
+  - **開発支援機能**: 
+    - DevToolsコンポーネントによる開発時のデバッグ支援
+    - ChangeLoggerによるノード変更の追跡
+    - NodeInspectorによるノード情報のリアルタイム表示
+    - ViewportLoggerによるビューポート状態の監視
   - **カスタムデザイン**: 各ノードタイプに応じた独自の形状とスタイル
 
 - **依存関係にあるファイル**:
