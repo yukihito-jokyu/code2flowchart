@@ -1,9 +1,9 @@
 # ファイル path
 
 ```
-dev/frontend/src/components/CodeInput/CodeInput.tsx
-dev/frontend/src/components/CodeInput/CodeInput.module.css
-dev/frontend/src/components/CodeInput/index.ts
+dev/frontend/src/features/projectCode/components/CodeInput/CodeInput.tsx
+dev/frontend/src/features/projectCode/components/CodeInput/CodeInput.module.css
+dev/frontend/src/features/projectCode/components/CodeInput/index.ts
 ```
 
 # コンポーネントの情報
@@ -18,9 +18,9 @@ dev/frontend/src/components/CodeInput/index.ts
 
 - 依存関係にあるファイル
   - @/hooks/redux (Redux hooks)
-  - @/stores/projectCode/selectors (Redux selectors)
-  - @/stores/projectCode/slice (Redux actions)
-  - @/types/projectCode (TypeScript型定義)
+  - ../../stores/selectors (Redux selectors)
+  - ../../stores/slice (Redux actions)
+  - ../../types/projectCode (TypeScript型定義)
   - ./CodeInput.module.css (スタイルシート)
 
 - props の型と説明
@@ -54,5 +54,11 @@ dev/frontend/src/components/CodeInput/index.ts
 - エラーメッセージ表示
 - 保存済みコードの一覧表示と編集機能
 
+## Feature統合による改善点
+- **インポート**: `@/features/projectCode`からの統一インポートに変更
+- **保守性**: projectCode機能に関連するすべてのコンポーネントが1箇所に集約
+- **再利用性**: feature内でのコンポーネント再利用が容易
+
 ## フューチャー機能
 - フローチャート生成機能（TODO: 実装予定）
+- feature内でのカスタムフック抽象化

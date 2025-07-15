@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { projectCodeApi } from '@/api/projectCode';
+import { projectCodeApi } from '../api/projectCode';
 import {
   ProjectCode,
   ProjectCodeCreate,
   ProjectCodeUpdate,
   ProjectCodeState,
-} from '@/types/projectCode';
+} from '../types/projectCode';
 
 // 初期状態
 const initialState: ProjectCodeState = {

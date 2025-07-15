@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+
 import {
   selectProjectCodes,
   selectCurrentCode,
   selectProjectCodeLoading,
   selectProjectCodeError,
-} from '@/stores/projectCode/selectors';
+} from '../../stores/selectors';
 import {
   createProjectCode,
   updateProjectCode,
@@ -14,8 +15,8 @@ import {
   clearError,
   clearCurrentCode,
   setCurrentCode,
-} from '@/stores/projectCode/slice';
-import { ProjectCode, ProjectCodeCreate, ProjectCodeUpdate } from '@/types/projectCode';
+} from '../../stores/slice';
+import { ProjectCode, ProjectCodeCreate, ProjectCodeUpdate } from '../../types/projectCode';
 
 import styles from './CodeInput.module.css';
 
