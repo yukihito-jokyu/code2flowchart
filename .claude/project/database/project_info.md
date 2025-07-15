@@ -59,3 +59,16 @@ docker stop flow_mysql
 
 - 本番環境では適切なパスワードとセキュリティ設定を使用してください
 - データは `mysql_data` ボリュームに永続化されます
+
+## テーブル設計ドキュメント
+
+各テーブルの詳細な設計ドキュメントは以下に配置されています：
+
+- [usersテーブル](./documents/users_table.md) - ユーザー認証と管理
+- [projectsテーブル](./documents/projects_table.md) - プロジェクト管理
+- [codesテーブル](./documents/codes_table.md) - ノードと紐づくコード管理
+- [project_codesテーブル](./documents/project_codes_table.md) - プロジェクトレベルの独立したコード管理
+- [nodesテーブル](./documents/nodes_table.md) - フローチャートのノード情報
+- [edgesテーブル](./documents/edges_table.md) - ノード間の接続情報
+
+詳細なスキーマ設計については [database_schema.md](./database_schema.md) を参照してください。
