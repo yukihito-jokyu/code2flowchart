@@ -8,10 +8,10 @@ import {
   EdgeChange,
   Connection,
 } from '@xyflow/react';
-import '@xyflow/react/dist/style.css';
 
 import { FlowchartNode, FlowchartEdge } from '../types';
 
+import DevTools from './devTools/DevTools';
 import {
   IfNode,
   UnknownNode,
@@ -21,6 +21,7 @@ import {
   ForStartNode,
   ForEndNode,
 } from './nodes';
+import '@xyflow/react/dist/style.css';
 
 interface FlowchartCanvasProps {
   nodes: FlowchartNode[];
@@ -70,6 +71,7 @@ export const FlowchartCanvas = ({
         <Background />
         <Controls />
         <MiniMap />
+        <DevTools />
       </ReactFlow>
     </div>
   );
