@@ -1,10 +1,27 @@
 # ファイル path
 
 ```
-dev/frontend/src/api/projectCode.ts
-dev/frontend/src/components/CodeInput/
-dev/frontend/src/stores/projectCode/
-dev/frontend/src/types/projectCode.ts
+dev/frontend/src/features/projectCode/
+├── api/
+│   ├── index.ts
+│   └── projectCode.ts
+├── components/
+│   ├── CodeInput/
+│   │   ├── CodeInput.tsx
+│   │   ├── CodeInput.module.css
+│   │   └── index.ts
+│   └── index.ts
+├── hooks/
+│   └── index.ts
+├── stores/
+│   ├── index.ts
+│   ├── selectors.ts
+│   ├── slice.ts
+│   └── types.ts
+├── types/
+│   ├── index.ts
+│   └── projectCode.ts
+└── index.ts
 ```
 
 # プロジェクトコード機能の情報
@@ -56,25 +73,36 @@ dev/frontend/src/types/projectCode.ts
 # アーキテクチャ概要
 
 ## レイヤー構成
-1. **API Layer** (api/projectCode.ts)
+
+### Feature統合アーキテクチャ
+プロジェクトコード機能は`src/features/projectCode/`配下に統合され、以下のレイヤーで構成されています：
+
+1. **API Layer** (`api/`)
    - RESTful API との通信を担当
    - 認証トークンの自動付与
    - エラーハンドリング
+   - projectCodeApi の統一エクスポート
 
-2. **State Management Layer** (stores/projectCode/)
+2. **State Management Layer** (`stores/`)
    - Redux Toolkit を使用した状態管理
    - 非同期アクションの処理
    - 正規化されたデータ構造
+   - selectors, slice, types の分離
 
-3. **Component Layer** (components/CodeInput/)
+3. **Component Layer** (`components/`)
    - ユーザーインターフェース
    - フォーム管理とバリデーション
    - ユーザーアクションの処理
+   - CodeInput コンポーネントの統合管理
 
-4. **Type Layer** (types/projectCode.ts)
+4. **Type Layer** (`types/`)
    - TypeScript 型定義
    - API レスポンス型
    - コンポーネントプロパティ型
+
+5. **Hooks Layer** (`hooks/`)
+   - 将来の拡張用カスタムフック
+   - feature固有のロジック抽象化
 
 ## データフロー
 1. ユーザーアクション → Component
@@ -83,15 +111,28 @@ dev/frontend/src/types/projectCode.ts
 4. API Response → Redux State Update
 5. State Update → Component Re-render
 
-# 統合ポイント
+# Feature統合の利点
 
-## FlowchartPage との統合
-- FlowchartPage.tsx でCodeInputコンポーネントを使用
+## アーキテクチャ改善点
+1. **関心の分離**: 機能に関連するすべてのコードが1箇所に集約
+2. **再利用性**: `@/features/projectCode` からの統一インポート
+3. **保守性**: 機能単位での修正・拡張が容易
+4. **テスタビリティ**: feature単位でのテストが可能
+
+## 統合ポイント
+
+### FlowchartPage との統合
+- FlowchartPage.tsx で `@/features/projectCode` からCodeInputをインポート
 - プロジェクトUUIDを共有してコード管理
 - フローチャート生成機能への連携予定
+
+### Redux Store との統合
+- `src/stores/rootReducer.ts` で feature の slice を統合
+- 他の機能との状態共有が明確化
 
 ## 今後の拡張予定
 - コードからフローチャートの自動生成
 - シンタックスハイライト機能
 - コード実行・デバッグ機能
 - バージョン管理機能
+- feature内でのカスタムフックの追加
