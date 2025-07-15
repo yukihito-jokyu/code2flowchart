@@ -267,7 +267,7 @@ const FlowchartPageContent = ({
       <NodeDetailModal
         isOpen={showNodeDetail}
         onClose={handleCloseNodeDetail}
-        nodeData={selectedNode?.data || null}
+        node={selectedNode || null}
       />
     </div>
   );
