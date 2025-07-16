@@ -4,6 +4,8 @@ database のドキュメント作成タスクです。
 
 - ドキュメントのテンプレートは`.claude/project/database/documents/template`ディレクトリにある。
 - ドキュメントは`.claude/project/database/documents`ディレクトリ内に記載する。
+- コードをどう変更したかではなく、変更した結果どうなったかの事実ベースで記述すること。
+- ドキュメントに過去の情報を載せないこと。過去の情報がある場合削除すること。
 
 ## 作業手順
 
