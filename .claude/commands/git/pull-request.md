@@ -3,14 +3,6 @@ allowed-tools: Bash(git status:*), Bash(gh pr create:*)
 description: Pull Request 作成タスク
 ---
 
-## Context
-
-- Current git status: !`git status`
-- Current git diff (staged and unstaged changes): !`git diff HEAD`
-- Current branch: !`git branch --show-current`
-- Recent commits: !`git log --oneline -10`
-- Pull Request の作成: !`gh pr create`
-
 ## Rule
 
 - Pull Request は日本語で作成してください。
