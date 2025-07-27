@@ -63,7 +63,7 @@ dev/frontend/src/pages/projects/ProjectsPage.tsx
 
 ### 使用アクション
 - `fetchProjects` - プロジェクト一覧取得
-- `fetchDeletedProjects` - 削除済みプロジェクト一覧取得
+- `fetchDeletedProjects` - 削除済みプロジェクト一覧取得（初期化時に実行）
 - `deleteProject` - プロジェクトの論理削除
 - `restoreProject` - プロジェクトの復元
 - `hardDeleteProject` - プロジェクトの物理削除

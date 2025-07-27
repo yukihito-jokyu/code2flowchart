@@ -1,7 +1,7 @@
 # ファイル path
 
 ```
-dev/frontend/src/api/projectCode.ts
+dev/frontend/src/features/projectCode/api/projectCode.ts
 ```
 
 # 関数の情報
@@ -12,7 +12,7 @@ dev/frontend/src/api/projectCode.ts
   - 新しいプロジェクトコードを作成する
 
 - 呼び出している api
-  - POST /api/project-codes/
+  - POST /project-codes/make
 
 - 引数の型
   - projectCodeData: ProjectCodeCreate
@@ -21,7 +21,7 @@ dev/frontend/src/api/projectCode.ts
   - Promise<ProjectCode>
 
 - 依存関係にあるファイル
-  - @/types/projectCode
+  - @/features/projectCode/types/projectCode
 
 ## getProjectCodes
 
@@ -29,7 +29,7 @@ dev/frontend/src/api/projectCode.ts
   - 指定されたプロジェクトのコード一覧を取得する
 
 - 呼び出している api
-  - GET /api/project-codes/project/{projectUuid}
+  - GET /project-codes/project/{projectUuid}
 
 - 引数の型
   - projectUuid: string
@@ -40,7 +40,7 @@ dev/frontend/src/api/projectCode.ts
   - Promise<ProjectCodeResponse>
 
 - 依存関係にあるファイル
-  - @/types/projectCode
+  - @/features/projectCode/types/projectCode
 
 ## getProjectCode
 
@@ -48,7 +48,7 @@ dev/frontend/src/api/projectCode.ts
   - 指定されたUUIDのプロジェクトコード詳細を取得する
 
 - 呼び出している api
-  - GET /api/project-codes/{codeUuid}
+  - GET /project-codes/{codeUuid}
 
 - 引数の型
   - codeUuid: string
@@ -57,7 +57,7 @@ dev/frontend/src/api/projectCode.ts
   - Promise<ProjectCode>
 
 - 依存関係にあるファイル
-  - @/types/projectCode
+  - @/features/projectCode/types/projectCode
 
 ## updateProjectCode
 
@@ -65,7 +65,7 @@ dev/frontend/src/api/projectCode.ts
   - 既存のプロジェクトコードを更新する
 
 - 呼び出している api
-  - PUT /api/project-codes/{codeUuid}
+  - PUT /project-codes/{codeUuid}
 
 - 引数の型
   - codeUuid: string
@@ -75,7 +75,7 @@ dev/frontend/src/api/projectCode.ts
   - Promise<ProjectCode>
 
 - 依存関係にあるファイル
-  - @/types/projectCode
+  - @/features/projectCode/types/projectCode
 
 ## deleteProjectCode
 
@@ -83,7 +83,7 @@ dev/frontend/src/api/projectCode.ts
   - 指定されたUUIDのプロジェクトコードを削除する
 
 - 呼び出している api
-  - DELETE /api/project-codes/{codeUuid}
+  - DELETE /project-codes/{codeUuid}
 
 - 引数の型
   - codeUuid: string
@@ -96,10 +96,19 @@ dev/frontend/src/api/projectCode.ts
 
 # APIクライアント設定
 
+## 環境変数設定
+- `VITE_API_BASE_URL`: APIベースURL
+- Viteの環境変数として管理
+
 ## 認証機能
 - リクエストインターセプターでJWTトークンを自動付与
-- レスポンスインターセプターで認証エラー時の自動リダイレクト処理
+- localStorage から `authToken` を取得して Authorization ヘッダーに設定
 
 ## エラーハンドリング
+- レスポンスインターセプターでエラー処理
 - 401/403エラー時にローカルストレージのトークンをクリアしてログイン画面にリダイレクト
-- API エラーの詳細をコンソールに出力
+- コンソールにAPIエラーの詳細を出力
+
+## デバッグ機能
+- リクエスト時にトークンの有無をコンソールに出力
+- APIエラーの詳細情報をコンソールに出力

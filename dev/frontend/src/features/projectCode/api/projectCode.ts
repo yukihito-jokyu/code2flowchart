@@ -7,7 +7,7 @@ import {
   ProjectCodeResponse,
 } from '../types/projectCode';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // APIクライアントの設定
 const apiClient = axios.create({
@@ -47,7 +47,7 @@ apiClient.interceptors.response.use(
 export const projectCodeApi = {
   // プロジェクトコード作成
   createProjectCode: async (projectCodeData: ProjectCodeCreate): Promise<ProjectCode> => {
-    const response = await apiClient.post<ProjectCode>('/project-codes/', projectCodeData);
+    const response = await apiClient.post<ProjectCode>('/project-codes/make', projectCodeData);
     return response.data;
   },
 

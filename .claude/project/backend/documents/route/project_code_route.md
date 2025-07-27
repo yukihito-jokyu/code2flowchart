@@ -143,7 +143,7 @@ ProjectCodeDeleteResponse
 
 | メソッド | エンドポイント | 機能 |
 |---------|----------------|------|
-| POST | `/api/project-codes/` | プロジェクトコード作成 |
+| POST | `/api/project-codes/make` | プロジェクトコード作成 |
 | GET | `/api/project-codes/project/{project_uuid}` | プロジェクトコード一覧取得 |
 | GET | `/api/project-codes/{code_uuid}` | プロジェクトコード詳細取得 |
 | PUT | `/api/project-codes/{code_uuid}` | プロジェクトコード更新 |
@@ -163,4 +163,5 @@ ProjectCodeDeleteResponse
 
 ## ドキュメント更新履歴
 
+- 2025-07-27: 最新実装に合わせて更新（エンドポイントパス修正）
 - 2024-01-XX: 初版作成 - ProjectCode Route の実装 (Issue #25)
