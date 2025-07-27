@@ -16,7 +16,7 @@ from models.user import User
 router = APIRouter()
 
 
-@router.post("/", response_model=ProjectResponse, summary="プロジェクト作成")
+@router.post("/make", response_model=ProjectResponse, summary="プロジェクト作成")
 async def create_project(
     project: ProjectCreate,
     current_user: User = Depends(get_current_user),
@@ -32,7 +32,7 @@ async def create_project(
         )
 
 
-@router.get("/", response_model=ProjectListResponse, summary="プロジェクト一覧取得")
+@router.get("/get", response_model=ProjectListResponse, summary="プロジェクト一覧取得")
 async def get_projects(
     skip: int = Query(0, ge=0, description="スキップ件数"),
     limit: int = Query(100, ge=1, le=1000, description="取得件数"),
