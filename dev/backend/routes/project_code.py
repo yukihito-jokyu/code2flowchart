@@ -16,7 +16,9 @@ from models.user import User
 router = APIRouter()
 
 
-@router.post("/make", response_model=ProjectCodeResponse, summary="プロジェクトコード作成")
+@router.post(
+    "/make", response_model=ProjectCodeResponse, summary="プロジェクトコード作成"
+)
 async def create_project_code(
     project_code: ProjectCodeCreate,
     current_user: User = Depends(get_current_user),

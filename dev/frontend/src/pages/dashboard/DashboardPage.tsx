@@ -1,11 +1,16 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Card } from '@/components';
 import { useAuth } from '@/features/auth';
+import { useAppDispatch } from '@/hooks';
+import { loginSuccess } from '@/stores';
 
 import styles from './DashboardPage.module.css';
 
 export const DashboardPage: React.FC = () => {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -20,6 +25,26 @@ export const DashboardPage: React.FC = () => {
   const handleOtherFeatures = () => {
     // 機能準備中のため、何もしない
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    const id = params.get('id');
+    const email = params.get('email');
+
+    if (token && id && email) {
+      // Reduxストアにログイン状態を保存
+      dispatch(
+        loginSuccess({
+          user: { id, email },
+          token,
+        })
+      );
+
+      // URLをきれいにする（クエリ削除）
+      navigate('/dashboard', { replace: true });
+    }
+  }, [location, navigate, dispatch]);
 
   return (
     <div className={styles.container}>
