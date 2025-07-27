@@ -17,6 +17,7 @@ interface LoginFormProps {
 }
 
 export const LoginForm = ({ onSuccess, onSignupClick }: LoginFormProps) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -117,6 +118,13 @@ export const LoginForm = ({ onSuccess, onSignupClick }: LoginFormProps) => {
             <div className={styles.divider}>
               <span className={styles.dividerText}>または</span>
             </div>
+            <button
+              type="button"
+              onClick={() => (window.location.href = `${API_BASE_URL}/auth/login`)}
+              className={styles.googleButton}
+            >
+              Googleでログイン
+            </button>
             <p className={styles.linkText}>アカウントをお持ちでない方はこちら</p>
             <button type="button" onClick={onSignupClick} className={styles.navButton}>
               新規登録
