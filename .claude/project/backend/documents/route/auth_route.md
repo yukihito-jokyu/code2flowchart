@@ -13,6 +13,7 @@ Auth Router - `/api/auth`
 ユーザー認証に関する以下の機能を提供するRESTful APIエンドポイント群：
 - ユーザー新規登録
 - ユーザーログイン（JWT トークン発行）
+- Google OAuth2認証（Google アカウントログイン）
 - ユーザーログアウト（トークン無効化）
 - パスワードハッシュ化とトークン管理
 
@@ -47,7 +48,31 @@ Auth Router - `/api/auth`
 - JWTアクセストークン生成
 - ユーザー情報と共にトークンを返却
 
-#### 3. POST `/logout` - ユーザーログアウト
+#### 3. GET `/login` - Google OAuth ログイン画面表示
+**概要**: Google OAuth2ログイン画面へのリダイレクト
+**認証**: 不要（パブリックエンドポイント）
+**引数の型**: なし
+**戻り値の型**: `RedirectResponse`
+**特徴**:
+- Google OAuth2認証フローの開始
+- 認証画面へのリダイレクト
+
+#### 4. GET `/google-oauth/callback` - Google OAuth コールバック
+**概要**: Google OAuth認証後のコールバック処理
+**認証**: 不要（Google OAuth処理）
+**引数の型**:
+- `request: Request` - リクエストオブジェクト（認可コード含む）
+- `db: Session` - データベースセッション（依存性注入）
+**戻り値の型**: `RedirectResponse`
+**エラー**: 
+- 400 - 認可コードが見つからない場合
+**特徴**:
+- Google認証情報の検証
+- 新規ユーザーの自動作成（Google認証時）
+- ランダムパスワード生成
+- フロントエンドへのトークン付きリダイレクト
+
+#### 5. POST `/logout` - ユーザーログアウト
 **概要**: ユーザーセッション終了とトークン無効化
 **認証**: 必須（JWT認証）
 **引数の型**:
@@ -91,16 +116,20 @@ Auth Router - `/api/auth`
 
 ### 依存関係にあるファイル群
 
-- `fastapi` - APIRouter, Depends, HTTPException, status
+- `fastapi` - APIRouter, Depends, HTTPException, status, Request
+- `fastapi.responses` - RedirectResponse, JSONResponse
 - `fastapi.security` - HTTPAuthorizationCredentials
 - `sqlalchemy.orm.Session` - データベースセッション
+- `google_auth_oauthlib.flow` - Flow（Google OAuth2処理）
 - `schemas/auth.py` - 全認証スキーマ
 - `lib/auth/user_manager.py` - UserManagerクラス
-- `lib/auth/utils.py` - create_access_token, blacklist_token関数
+- `lib/auth/utils.py` - create_access_token, blacklist_token, get_id_info, generate_random_password関数
 - `lib/auth/middleware.py` - get_current_user, security関数
 - `utils/database.py` - get_db関数
 - `models/user.py` - Userモデル
+- `config/config.py` - SCOPES, GOOGLE_CLIENT_SECRET_FILE, REDIRECT_URI設定
+- `dotenv` - 環境変数読み込み
 
 ## ドキュメント更新履歴
 
-- 2025-07-13: 初回作成
+- 2025-07-27: Google OAuth2認証機能を追加、依存関係を更新
