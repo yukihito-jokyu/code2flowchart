@@ -8,7 +8,7 @@ import {
   ProjectDeleteResponse,
 } from '../types/project';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // APIクライアントの設定
 const apiClient = axios.create({
@@ -48,13 +48,13 @@ apiClient.interceptors.response.use(
 export const projectApi = {
   // プロジェクト作成
   createProject: async (projectData: ProjectCreate): Promise<Project> => {
-    const response = await apiClient.post<Project>('/projects/', projectData);
+    const response = await apiClient.post<Project>('/projects/make', projectData);
     return response.data;
   },
 
   // プロジェクト一覧取得
   getProjects: async (skip: number = 0, limit: number = 100): Promise<ProjectListResponse> => {
-    const response = await apiClient.get<ProjectListResponse>('/projects/', {
+    const response = await apiClient.get<ProjectListResponse>('/projects/get', {
       params: { skip, limit },
     });
     return response.data;

@@ -10,7 +10,7 @@ import { SignupPage } from '@/pages/signup';
 export const router = createBrowserRouter([
   {
     path: '/',
-    Component: DashboardPage,
+    Component: LoginPage,
   },
   {
     path: '/dashboard',
