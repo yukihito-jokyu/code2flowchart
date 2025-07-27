@@ -9,6 +9,7 @@ dependencies = [
     "dotenv>=0.9.9",
     "email-validator>=2.2.0",
     "fastapi>=0.115.12",
+    "google-auth-oauthlib>=1.2.2",
     "mangum>=0.19.0",
     "passlib[bcrypt]>=1.7.4",
     "pymysql>=1.1.1",
