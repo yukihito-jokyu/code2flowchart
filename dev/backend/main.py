@@ -32,4 +32,5 @@ app.include_router(
 async def hello():
     return {"message": "Hello from FastAPI!"}
 
+
 handler = Mangum(app)
