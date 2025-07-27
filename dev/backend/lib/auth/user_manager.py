@@ -9,11 +9,16 @@ class UserManager:
     def __init__(self, db: Session):
         self.db = db
 
-    def create_user(self, email: str, password: str) -> Optional[User]:
+    def create_user(
+        self, email: str, password: str, user_name: str = None
+    ) -> Optional[User]:
         """新規ユーザーの作成"""
         try:
-            # usernameをemailから生成（@より前の部分）
-            username = email.split("@")[0]
+            if user_name:
+                username = user_name
+            else:
+                # usernameをemailから生成（@より前の部分）
+                username = email.split("@")[0]
 
             # 同じusernameが既に存在する場合は数字を付加（削除済みユーザーも含めてチェック）
             base_username = username
