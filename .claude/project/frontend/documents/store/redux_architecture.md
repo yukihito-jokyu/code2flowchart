@@ -24,10 +24,10 @@ src/stores/
 
 ### 認証ストア (auth)
 
-- **User**: ユーザー情報（id, email）
+- **User**: ユーザー情報（id, email, username）
 - **isAuthenticated**: 認証状態（boolean）
 - **isLoading**: ローディング状態（boolean）
-- **ローカルストレージ連携**: 認証情報の永続化
+- **ローカルストレージ連携**: 認証情報の永続化（token, userId, userEmail, userUsername）
 
 ### Actions
 
