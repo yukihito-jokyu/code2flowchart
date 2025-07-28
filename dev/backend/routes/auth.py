@@ -90,7 +90,7 @@ def callback(request: Request, db: Session = Depends(get_db)):
     # JWTトークン生成
     access_token = create_access_token(data={"sub": user.uuid})
 
-    redirect_url = f"{FRONT_DOMAIN}/dashboard?token={access_token}&email={user.email}&id={user.uuid}"
+    redirect_url = f"{FRONT_DOMAIN}/dashboard?token={access_token}&email={user.email}&id={user.uuid}&username={user.username}"
 
     # フロントエンドに処理を返してダッシュボードへ画面遷移させる。
     return RedirectResponse(url=redirect_url)

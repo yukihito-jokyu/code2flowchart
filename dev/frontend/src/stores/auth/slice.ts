@@ -24,6 +24,7 @@ const authSlice = createSlice({
       localStorage.setItem('authToken', action.payload.token);
       localStorage.setItem('userId', action.payload.user.id);
       localStorage.setItem('userEmail', action.payload.user.email);
+      localStorage.setItem('userUsername', action.payload.user.username);
     },
     loginFailure: (state) => {
       state.user = null;
@@ -39,14 +40,16 @@ const authSlice = createSlice({
       localStorage.removeItem('authToken');
       localStorage.removeItem('userId');
       localStorage.removeItem('userEmail');
+      localStorage.removeItem('userUsername');
     },
     restoreAuth: (state) => {
       const token = localStorage.getItem('authToken');
       const userId = localStorage.getItem('userId');
       const userEmail = localStorage.getItem('userEmail');
+      const userUsername = localStorage.getItem('userUsername');
 
-      if (token && userId && userEmail) {
-        state.user = { id: userId, email: userEmail };
+      if (token && userId && userEmail && userUsername) {
+        state.user = { id: userId, email: userEmail, username: userUsername };
         state.isAuthenticated = true;
       }
       state.isLoading = false;
