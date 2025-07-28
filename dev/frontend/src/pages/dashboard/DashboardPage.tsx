@@ -38,12 +38,13 @@ export const DashboardPage: React.FC = () => {
     const token = params.get('token');
     const id = params.get('id');
     const email = params.get('email');
+    const username = params.get('username');
 
-    if (token && id && email) {
+    if (token && id && email && username) {
       // Reduxストアにログイン状態を保存
       dispatch(
         loginSuccess({
-          user: { id, email },
+          user: { id, email, username },
           token,
         })
       );
@@ -69,7 +70,7 @@ export const DashboardPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>ダッシュボード</h1>
-          <p className={styles.welcome}>ようこそ、{user?.email} さん</p>
+          <p className={styles.welcome}>ようこそ、{user?.username} さん</p>
         </div>
 
         <div className={styles.content}>
