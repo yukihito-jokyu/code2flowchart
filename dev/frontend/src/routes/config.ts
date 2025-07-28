@@ -5,7 +5,6 @@ import { FlowchartPage } from '@/pages/flowchart';
 import { LoginPage } from '@/pages/login';
 import { LogoutPage } from '@/pages/logout';
 import { ProjectsPage } from '@/pages/projects';
-import { SignupPage } from '@/pages/signup';
 
 export const router = createBrowserRouter([
   {
@@ -31,9 +30,5 @@ export const router = createBrowserRouter([
   {
     path: '/logout',
     Component: LogoutPage,
-  },
-  {
-    path: '/signup',
-    Component: SignupPage,
   },
 ]);
