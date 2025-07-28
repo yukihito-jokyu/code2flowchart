@@ -121,6 +121,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
   - `.claude/project/frontend/documents/component/code_input_component.md`
 - Node Detail Modal Component
   - `.claude/project/frontend/documents/component/node_detail_modal.md`
+- Welcome Animation Component
+  - `.claude/project/frontend/documents/component/welcome_animation_component.md`
 
 ### ページ
 

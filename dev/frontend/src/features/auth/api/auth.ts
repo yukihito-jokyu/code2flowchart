@@ -1,12 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-import type {
-  LoginRequest,
-  LoginResponse,
-  SignupRequest,
-  SignupResponse,
-  LogoutResponse,
-} from '../types';
+import type { LogoutResponse } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -38,16 +32,6 @@ const getAuthHeaders = () => {
 };
 
 export const authApi = {
-  signup: async (data: SignupRequest): Promise<SignupResponse> => {
-    const response = await apiClient.post<SignupResponse>('/auth/signup', data);
-    return response.data;
-  },
-
-  login: async (data: LoginRequest): Promise<LoginResponse> => {
-    const response = await apiClient.post<LoginResponse>('/auth/login', data);
-    return response.data;
-  },
-
   logout: async (): Promise<LogoutResponse> => {
     const response = await apiClient.post<LogoutResponse>(
       '/auth/logout',

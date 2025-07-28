@@ -1,0 +1,1 @@
+export { WelcomeAnimation } from './WelcomeAnimation';
