@@ -20,7 +20,6 @@ dev/frontend/src/routes/config.ts
 | `/flowchart/:projectId` | FlowchartPage | フローチャート編集画面（プロジェクトID指定） |
 | `/login` | LoginPage | ログイン画面 |
 | `/logout` | LogoutPage | ログアウト処理画面 |
-| `/signup` | SignupPage | ユーザー登録画面 |
 
 - 依存関係にあるファイル
   - react-router-dom - ルーティングライブラリ
@@ -29,7 +28,6 @@ dev/frontend/src/routes/config.ts
   - @/pages/login - LoginPage
   - @/pages/logout - LogoutPage
   - @/pages/projects - ProjectsPage
-  - @/pages/signup - SignupPage
 
 ## ルーティング特徴
 
@@ -45,5 +43,5 @@ dev/frontend/src/routes/config.ts
 
 ### 認証フロー
 1. ルートアクセス時はログインページ表示
-2. 認証成功後はダッシュボードへ遷移
+2. Google OAuth2認証成功後はダッシュボードへ遷移
 3. ログアウト時は専用ページで処理後ログインページへ

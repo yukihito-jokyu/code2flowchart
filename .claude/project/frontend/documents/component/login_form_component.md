@@ -10,51 +10,50 @@ src/features/auth/components/LoginForm.module.css
 ## LoginForm
 
 - **コンポーネントの説明**
-  - ユーザーログイン機能を提供するReactコンポーネント
-  - メール・パスワード認証とGoogle OAuth2認証の両方をサポート
-  - ニューモーフィズムデザインを採用した現代的なUI
-  - フォームバリデーション、エラーハンドリング、ローディング状態管理を内蔵
-  - 認証成功時の通知モーダル表示とページ遷移機能
+  - Google OAuth2による認証機能を提供するReactコンポーネント
+  - シンプルなワンクリック認証を実現
+  - モダンなボタンデザインによる直感的なUI
 
 - **依存関係にあるファイル**
-  - `@/components` - NotificationModal
-  - `@/hooks` - useNotification
-  - `../hooks` - useLogin
-  - `../utils` - validateLoginForm
-  - `../types` - LoginFormData, LoginFormErrors
-  - `react-router-dom` - useNavigate
-  - `react` - useState
+  - `react` - React基本機能
 
 - **propsの型と説明**
   ```typescript
-  interface LoginFormProps {
-    onSuccess?: () => void;     // ログイン成功時のコールバック関数
-    onSignupClick?: () => void; // 新規登録ボタンクリック時のコールバック関数
-  }
+  // propsは使用されていません
   ```
 
 - **主要機能**
-  - **メール・パスワード認証**: 従来の認証方式
   - **Google OAuth2認証**: `${API_BASE_URL}/auth/login`へのリダイレクト
-  - **リアルタイムバリデーション**: 入力時のエラー表示クリア
-  - **ローディング状態**: 送信中のボタン無効化と表示切り替え
-  - **エラーハンドリング**: APIエラーの表示
-  - **成功通知**: NotificationModalを使用した成功メッセージ
-  - **レスポンシブデザイン**: モバイル対応のレイアウト
+  - **ワンクリック認証**: 複雑なフォーム入力不要
 
-- **デザイン特徴**
-  - **ニューモーフィズム**: 立体的で現代的な視覚効果
-  - **グラデーション**: 美しい色彩効果
-  - **アニメーション**: ホバー・クリック時の滑らかな遷移
-  - **アクセシビリティ**: 適切なラベルとフォーカス管理
-
-- **状態管理**
+- **コンポーネント構造**
   ```typescript
-  const [formData, setFormData] = useState<LoginFormData>({
-    email: '',
-    password: '',
-  });
-  const [formErrors, setFormErrors] = useState<LoginFormErrors>({});
+  export const LoginForm = () => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+    const handleGoogleLogin = () => {
+      window.location.href = `${API_BASE_URL}/auth/login`;
+    };
+
+    return (
+      <div className={styles.form}>
+        <h2 className={styles.title}>ログイン</h2>
+        <p className={styles.description}>
+          Googleアカウントでログインしてください
+        </p>
+        
+        <div className={styles.submitField}>
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className={styles.googleButton}
+          >
+            Googleでログイン
+          </button>
+        </div>
+      </div>
+    );
+  };
   ```
 
 - **環境変数**

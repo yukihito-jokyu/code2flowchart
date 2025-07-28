@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from models.user import User
-from lib.auth.utils import get_password_hash, verify_password
 from typing import Optional
 
 
@@ -12,7 +11,7 @@ class UserManager:
     def create_user(
         self, email: str, password: str, user_name: str = None
     ) -> Optional[User]:
-        """新規ユーザーの作成"""
+        """新規ユーザーの作成（Google OAuth用）"""
         try:
             if user_name:
                 username = user_name
@@ -27,9 +26,8 @@ class UserManager:
                 username = f"{base_username}{counter}"
                 counter += 1
 
-            hashed_password = get_password_hash(password)
-
-            user = User(username=username, email=email, password_hash=hashed_password)
+            # パスワードはGoogle認証用のランダムな値を設定
+            user = User(username=username, email=email, password_hash=password)
 
             self.db.add(user)
             self.db.commit()
@@ -57,12 +55,3 @@ class UserManager:
         if not include_deleted:
             query = query.filter(User.is_deleted == include_deleted)
         return query.first()
-
-    def authenticate_user(self, email: str, password: str) -> Optional[User]:
-        """ユーザー認証（削除済みユーザーは認証不可）"""
-        user = self.get_user_by_email(email, include_deleted=False)
-        if not user:
-            return None
-        if not verify_password(password, user.password_hash):
-            return None
-        return user
