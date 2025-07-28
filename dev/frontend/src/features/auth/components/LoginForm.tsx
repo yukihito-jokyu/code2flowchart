@@ -10,16 +10,10 @@ export const LoginForm = () => {
   return (
     <div className={styles.form}>
       <h2 className={styles.title}>ログイン</h2>
-      <p className={styles.description}>
-        Googleアカウントでログインしてください
-      </p>
-      
+      <p className={styles.description}>Googleアカウントでログインしてください</p>
+
       <div className={styles.submitField}>
-        <button
-          type="button"
-          onClick={handleGoogleLogin}
-          className={styles.googleButton}
-        >
+        <button type="button" onClick={handleGoogleLogin} className={styles.googleButton}>
           Googleでログイン
         </button>
       </div>
