@@ -11,18 +11,28 @@ src/pages/login/
 
 ## LoginPage
 
-- ユーザーのログイン機能を提供するページ
-- メールアドレスとパスワードによる認証
-- ログイン成功時のリダイレクト機能
-- 新規登録ページへのモダンなナビゲーション機能
+- Google OAuth2によるログイン機能を提供するページ
+- シンプルなレイアウトでLoginFormコンポーネントを表示
+- カード形式のデザインでコンテンツを整理
 
 - 依存関係にあるファイル
-  - LoginForm (@/features/auth) - ログインフォームコンポーネント
-  - react-router-dom (useNavigate) - ページナビゲーション
+  - LoginForm (@/features/auth) - Google OAuth2ログインフォームコンポーネント
   - LoginPage.module.css - ページスタイル
 
-## ナビゲーション機能
+- **ページ構造**
+  ```typescript
+  export const LoginPage = () => {
+    return (
+      <div className={styles.container}>
+        <div className={styles.card}>
+          <LoginForm />
+        </div>
+      </div>
+    );
+  };
+  ```
 
-- **モダンなボタンデザイン**: ネオモーフィズムスタイルのナビゲーションボタン
-- **視覚的フィードバック**: ホバー・アクティブ状態のアニメーション
-- **ユーザビリティ**: 直感的なページ間遷移
+- **レイアウト特徴**
+  - **コンテナ**: 中央配置のレイアウト
+  - **カードデザイン**: フォームを囲むカード形式
+  - **シンプル**: 必要最小限の要素で構成

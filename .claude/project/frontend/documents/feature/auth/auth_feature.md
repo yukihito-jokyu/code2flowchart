@@ -2,24 +2,14 @@
 
 ```
 src/features/auth/
-├── api/
-│   ├── auth.ts
-│   └── index.ts
 ├── components/
 │   ├── LoginForm.tsx
 │   ├── LoginForm.module.css
-│   ├── SignupForm.tsx
-│   ├── SignupForm.module.css
 │   └── index.ts
 ├── hooks/
-│   ├── useLogin.ts
-│   ├── useSignup.ts
 │   └── index.ts
 ├── types/
 │   ├── auth.ts
-│   └── index.ts
-├── utils/
-│   ├── validation.ts
 │   └── index.ts
 └── index.ts
 ```
@@ -28,36 +18,15 @@ src/features/auth/
 
 ## Auth Feature (認証機能)
 
-- メール・パスワードによるユーザー新規登録・ログイン機能を提供
-- フォームバリデーション、API 通信、エラーハンドリングを統合
-- メタリックなデザインの UI コンポーネント
-- トークンベースの認証システム
-- モダンなナビゲーションボタンによるページ間遷移
+- Google OAuth2による認証機能を提供
+- シンプルなワンクリック認証システム
+- モダンなボタンデザインによるユーザーインターフェース
 
 - 依存関係にあるファイル
 
-  - axios (HTTP 通信)
   - react-router-dom (ルーティング)
-  - React 19 hooks (useState, useEffect)
+  - React 19 hooks
 
 - 機能の説明
-  - **API 層**: 新規登録・ログインエンドポイントとの通信
-  - **Component 層**: SignupForm・LoginForm コンポーネント（メタリックデザイン + ナビゲーション機能）
-  - **Hook 層**: 新規登録・ログイン処理のビジネスロジック
+  - **Component 層**: LoginForm コンポーネント（Google OAuth2認証ボタン）
   - **Types 層**: TypeScript 型定義による型安全性
-  - **Utils 層**: フォームバリデーション関数
-
-## ナビゲーション機能
-
-### デザインの特徴
-
-- **ネオモーフィズムスタイル**: 立体的で現代的なボタンデザイン
-- **アニメーション効果**: ホバー時のシャイン・エフェクトとシャドウ変化
-- **視覚的区切り**: 「または」の区切り線でナビゲーション領域を明確化
-- **レスポンシブ**: スムーズなトランジションとインタラクション
-
-### ユーザーフロー
-
-- **ログインページ**: 新規登録ページへの遷移ボタン
-- **新規登録ページ**: ログインページへの遷移ボタン
-- **成功時の自動リダイレクト**: 新規登録完了後はログインページへ自動遷移
