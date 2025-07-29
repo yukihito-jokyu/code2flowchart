@@ -4,6 +4,7 @@ from mangum import Mangum
 from routes.auth import router as auth_router
 from routes.project import router as project_router
 from routes.project_code import router as project_code_router
+from routes.flowchart import router as flowchart_router
 from utils.database import create_tables
 
 app = FastAPI()
@@ -26,6 +27,7 @@ app.include_router(project_router, prefix="/api/projects", tags=["プロジェ�
 app.include_router(
     project_code_router, prefix="/api/project-codes", tags=["プロジェクトコード"]
 )
+app.include_router(flowchart_router, tags=["フローチャート"])
 
 
 @app.get("/api/hello")

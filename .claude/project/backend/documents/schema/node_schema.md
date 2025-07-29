@@ -85,6 +85,40 @@ node.py - ノード関連スキーマ集
 - `message: str` - 削除完了メッセージ
 - `uuid: str` - 削除されたノードUUID
 
+## フローチャート生成用スキーマ
+
+### 8. EdgeCreate
+**用途**: フローチャートのエッジ（矢印）作成
+**フィールド**:
+- `source: int` - ソースノードID
+- `target: int` - ターゲットノードID
+**特徴**: ノード間の関係性を表現
+
+### 9. FlowchartNodeCreate
+**用途**: フローチャート生成時のノード作成
+**フィールド**:
+- `id: int` - ノードID
+- `title: str` - ノードタイトル（1-255文字）
+- `code: Optional[str]` - コードスニペット（任意）
+- `info: Optional[str]` - ノード説明（任意）
+- `type: NodeType` - ノードタイプ（デフォルト: NORMAL）
+- `position: dict` - ノード位置（x、y座標）
+**特徴**: フローチャート表示用に最適化されたノード形式
+
+### 10. FlowchartGenerateRequest
+**用途**: フローチャート生成リクエスト
+**フィールド**:
+- `code_content: str` - 解析対象のコード（必須）
+- `language: str` - プログラミング言語（デフォルト: "python"）
+**特徴**: コード解析のためのリクエストデータ
+
+### 11. FlowchartGenerateResponse
+**用途**: フローチャート生成レスポンス
+**フィールド**:
+- `nodes: list[FlowchartNodeCreate]` - フローチャートノードリスト
+- `edges: list[EdgeCreate]` - フローチャートエッジリスト
+**特徴**: 生成されたフローチャートの完全なデータ構造
+
 ## バリデーション機能
 
 ### 入力データバリデーション
@@ -104,6 +138,8 @@ node.py - ノード関連スキーマ集
 - `schemas/project.py` - Project スキーマ（関連スキーマ）
 - `services/node_service.py` - Node ビジネスロジック（将来実装予定）
 - `routes/node.py` - Node API エンドポイント（将来実装予定）
+- `services/flowchart_service.py` - フローチャート生成サービス（フローチャート関連スキーマ使用）
+- `routes/flowchart.py` - フローチャート生成API（フローチャート関連スキーマ使用）
 
 ## ドキュメント更新履歴
 
@@ -111,3 +147,7 @@ node.py - ノード関連スキーマ集
   - NodeType enumの追加（for/while分割形式）
   - 基本スキーマ（NodeBase, NodeCreate, NodeUpdate, NodeResponse）の作成
   - リスト・削除レスポンススキーマの作成
+- 2025-07-29: フローチャート生成機能追加
+  - EdgeCreate, FlowchartNodeCreate スキーマの追加
+  - FlowchartGenerateRequest, FlowchartGenerateResponse スキーマの追加
+  - フローチャート生成サービス関連の依存関係更新
