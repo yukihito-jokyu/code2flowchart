@@ -60,3 +60,28 @@ class NodeListResponse(BaseModel):
 class NodeDeleteResponse(BaseModel):
     message: str = Field(..., description="削除完了メッセージ")
     uuid: str = Field(..., description="削除されたノードUUID")
+
+
+# フローチャート生成用スキーマ
+class EdgeCreate(BaseModel):
+    source: int = Field(..., description="ソースノードID")
+    target: int = Field(..., description="ターゲットノードID")
+
+
+class FlowchartNodeCreate(BaseModel):
+    id: int = Field(..., description="ノードID")
+    title: str = Field(..., min_length=1, max_length=255, description="ノードタイトル")
+    code: Optional[str] = Field(None, description="コードスニペット")
+    info: Optional[str] = Field(None, description="ノード説明")
+    type: NodeType = Field(NodeType.NORMAL, description="ノードタイプ")
+    position: dict = Field(..., description="ノード位置 (x, y座標)")
+
+
+class FlowchartGenerateRequest(BaseModel):
+    code_content: str = Field(..., min_length=1, description="解析対象のコード")
+    language: str = Field(default="python", description="プログラミング言語")
+
+
+class FlowchartGenerateResponse(BaseModel):
+    nodes: list[FlowchartNodeCreate] = Field(..., description="フローチャートノードリスト")
+    edges: list[EdgeCreate] = Field(..., description="フローチャートエッジリスト")
