@@ -2,8 +2,12 @@
 
 ```
 src/features/flowchart/
+├── api/
+│   ├── flowchart.ts
+│   └── index.ts
 ├── components/
 │   ├── FlowchartCanvas.tsx
+│   ├── FlowchartGenerator.tsx
 │   ├── NodeToolbar.tsx
 │   ├── NodeDetailModal.tsx
 │   ├── NodeDetailModal.module.css
@@ -28,6 +32,9 @@ src/features/flowchart/
 ├── types/
 │   ├── flowchart.ts
 │   └── index.ts
+├── utils/
+│   ├── flowchartConverter.ts
+│   └── index.ts
 └── index.ts
 ```
 
@@ -39,6 +46,7 @@ src/features/flowchart/
 
 - **主要コンポーネント**:
   - `FlowchartCanvas`: フローチャートの描画キャンバス（ReactFlow コンポーネントのラッパー）
+  - `FlowchartGenerator`: AIによるフローチャート自動生成コンポーネント
   - `NodeToolbar`: ノード追加・保存・クリア機能を提供するツールバー
   - `NodeDetailModal`: ノードクリック時の詳細情報表示モーダル
   - **開発用デバッグツール**:
@@ -103,9 +111,27 @@ src/features/flowchart/
     - ViewportLoggerによるビューポート状態の監視
   - **カスタムデザイン**: 各ノードタイプに応じた独自の形状とスタイル
 
+- **API機能**:
+  - `flowchartApi.generateFlowchart`: バックエンドAPIを呼び出してフローチャートを生成
+  - 認証トークンを含むHTTPリクエスト送信
+  - エラーハンドリングとレスポンス変換
+
+- **ユーティリティ機能**:
+  - `convertApiResponseToFlowchart`: APIレスポンスをReact Flow形式に変換
+  - バックエンドのノードタイプとフロントエンドのノードタイプのマッピング
+  - ノード位置とエッジの変換処理
+
+- **最新の機能追加 (feature/#26)**:
+  - **AI フローチャート生成機能**: 
+    - コード入力からの自動フローチャート生成
+    - 複数のプログラミング言語対応（Python, JavaScript, Java, C, C++）
+    - Azure OpenAI APIとの連携による高精度な解析
+    - フォールバック機能による確実な動作保証
+
 - **依存関係にあるファイル**:
   - `@xyflow/react`: React Flow ライブラリ
   - `@/hooks/useNotification`: 通知機能
+  - `axios`: HTTP通信ライブラリ（API呼び出し用）
   - プロジェクト固有の型定義やユーティリティは含まない独立したfeature
 
 - **技術特徴**:
