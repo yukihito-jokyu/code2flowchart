@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import {
   FlowchartCanvas,
+  FlowchartGenerator,
   NodeToolbar,
   NodeDetailModal,
   useFlowchart,
@@ -20,6 +21,7 @@ export const FlowchartPage = () => {
   const [showInstructions, setShowInstructions] = useState(true);
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [showNodeDetail, setShowNodeDetail] = useState(false);
+  const [activeTab, setActiveTab] = useState<'manual' | 'ai'>('manual');
 
   if (!projectId) {
     return (
@@ -40,6 +42,8 @@ export const FlowchartPage = () => {
         setShowCodeInput={setShowCodeInput}
         showNodeDetail={showNodeDetail}
         setShowNodeDetail={setShowNodeDetail}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
       />
     </ReactFlowProvider>
   );
@@ -54,6 +58,8 @@ interface FlowchartPageContentProps {
   setShowCodeInput: (show: boolean) => void;
   showNodeDetail: boolean;
   setShowNodeDetail: (show: boolean) => void;
+  activeTab: 'manual' | 'ai';
+  setActiveTab: (tab: 'manual' | 'ai') => void;
 }
 
 const FlowchartPageContent = ({
@@ -65,6 +71,8 @@ const FlowchartPageContent = ({
   setShowCodeInput,
   showNodeDetail,
   setShowNodeDetail,
+  activeTab,
+  setActiveTab,
 }: FlowchartPageContentProps) => {
   const {
     nodes,
@@ -175,6 +183,20 @@ const FlowchartPageContent = ({
           </div>
         </div>
         <div className={styles.headerRight}>
+          <div className={styles.tabContainer}>
+            <button
+              onClick={() => setActiveTab('manual')}
+              className={`${styles.tabButton} ${activeTab === 'manual' ? styles.active : ''}`}
+            >
+              手動作成
+            </button>
+            <button
+              onClick={() => setActiveTab('ai')}
+              className={`${styles.tabButton} ${activeTab === 'ai' ? styles.active : ''}`}
+            >
+              AI生成
+            </button>
+          </div>
           <button
             onClick={() => setShowCodeInput(!showCodeInput)}
             className={styles.codeToggleButton}
@@ -235,27 +257,33 @@ const FlowchartPageContent = ({
       )}
 
       <div className={styles.content}>
-        <NodeToolbar
-          onAddNode={handleAddNode}
-          onSave={handleSave}
-          onClear={handleClear}
-          isLoading={isLoading}
-        />
+        {activeTab === 'manual' ? (
+          <>
+            <NodeToolbar
+              onAddNode={handleAddNode}
+              onSave={handleSave}
+              onClear={handleClear}
+              isLoading={isLoading}
+            />
 
-        {error && <div className={styles.error}>{error}</div>}
+            {error && <div className={styles.error}>{error}</div>}
 
-        <div className={styles.flowchartContainer}>
-          <FlowchartCanvas
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onNodeClick={handleNodeClick}
-            onPaneClick={handlePaneClick}
-            className={styles.flowchartContainer}
-          />
-        </div>
+            <div className={styles.flowchartContainer}>
+              <FlowchartCanvas
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                onNodeClick={handleNodeClick}
+                onPaneClick={handlePaneClick}
+                className={styles.flowchartContainer}
+              />
+            </div>
+          </>
+        ) : (
+          <FlowchartGenerator className={styles.flowchartGeneratorContainer} />
+        )}
       </div>
 
       <CodeInput
