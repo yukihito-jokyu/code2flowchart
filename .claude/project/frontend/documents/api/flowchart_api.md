@@ -14,7 +14,7 @@ src/features/flowchart/api/flowchart.ts
   - APIレスポンスのエラーハンドリングを行い、適切なエラーメッセージを返す
 
 - 呼び出している api
-  - `POST /flowchart/generate` - フローチャート生成エンドポイント
+  - `POST /flowchart/generate` - フローチャート生成エンドポイント（/api プレフィックスはbaseURLに含まれる）
 
 - 引数の型
   ```typescript
@@ -41,8 +41,9 @@ src/features/flowchart/api/flowchart.ts
   }
 
   interface FlowchartEdgeResponse {
-    source: number;  // ソースノードID
-    target: number;  // ターゲットノードID
+    source: number;       // ソースノードID
+    target: number;       // ターゲットノードID
+    source_handle: string; // ソースハンドル（条件分岐の結果など）
   }
   ```
 
@@ -54,6 +55,19 @@ src/features/flowchart/api/flowchart.ts
 ## API設定詳細
 
 - **Base URL**: 環境変数から取得（`import.meta.env.VITE_API_BASE_URL`）
-- **認証**: Bearer token（localStorage から取得）
+- **認証**: Bearer token（localStorage の 'authToken' から取得）
 - **Content-Type**: `application/json`
-- **エラーハンドリング**: レスポンスインターセプターでカスタムエラーメッセージ生成
+- **エラーハンドリング**: Axiosレスポンスインターセプターによる統一エラー処理
+  - APIエラー: `error.response.data.detail` または `error.response.data.message` を使用
+  - ネットワークエラー: 「ネットワークエラーが発生しました」メッセージ
+  - その他: 「エラーが発生しました」デフォルトメッセージ
+
+## APIクライアント機能
+
+- **認証ヘッダー自動付与**: `getAuthHeaders()` 関数でローカルストレージからトークンを取得
+- **統一エラーハンドリング**: レスポンスインターセプターで全てのAPIエラーを処理
+- **型安全性**: TypeScriptインターフェースによる厳密な型チェック
+
+## 更新履歴
+
+- 2025-07-31: source_handleフィールドを追加、エラーハンドリング詳細を更新
