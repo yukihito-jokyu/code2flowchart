@@ -51,7 +51,9 @@ export interface FlowchartGenerateResponse {
 }
 
 export const flowchartApi = {
-  generateFlowchart: async (request: FlowchartGenerateRequest): Promise<FlowchartGenerateResponse> => {
+  generateFlowchart: async (
+    request: FlowchartGenerateRequest
+  ): Promise<FlowchartGenerateResponse> => {
     const response = await apiClient.post<FlowchartGenerateResponse>(
       '/flowchart/generate',
       request,

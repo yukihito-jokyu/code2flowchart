@@ -8,7 +8,6 @@ import {
 } from '@xyflow/react';
 import { useState, useCallback } from 'react';
 
-
 import { flowchartApi, FlowchartGenerateRequest } from '../api';
 import { convertApiResponseToFlowchart } from '../utils';
 
@@ -50,7 +49,7 @@ export const FlowchartGenerator = ({ className }: FlowchartGeneratorProps) => {
 
       const response = await flowchartApi.generateFlowchart(request);
       const { nodes: newNodes, edges: newEdges } = convertApiResponseToFlowchart(response);
-      
+
       setNodes(newNodes);
       setEdges(newEdges);
     } catch (err) {
@@ -65,7 +64,10 @@ export const FlowchartGenerator = ({ className }: FlowchartGeneratorProps) => {
     <div className={className} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div style={{ padding: '1rem', borderBottom: '1px solid #e1e5e9' }}>
         <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="language-select" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          <label
+            htmlFor="language-select"
+            style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}
+          >
             プログラミング言語:
           </label>
           <select
@@ -86,9 +88,12 @@ export const FlowchartGenerator = ({ className }: FlowchartGeneratorProps) => {
             <option value="cpp">C++</option>
           </select>
         </div>
-        
+
         <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor="code-input" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+          <label
+            htmlFor="code-input"
+            style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}
+          >
             コード:
           </label>
           <textarea
@@ -126,12 +131,8 @@ export const FlowchartGenerator = ({ className }: FlowchartGeneratorProps) => {
           >
             {isLoading ? 'フローチャート生成中...' : 'フローチャート生成'}
           </button>
-          
-          {error && (
-            <div style={{ color: '#dc3545', fontSize: '14px' }}>
-              {error}
-            </div>
-          )}
+
+          {error && <div style={{ color: '#dc3545', fontSize: '14px' }}>{error}</div>}
         </div>
       </div>
 
@@ -145,14 +146,16 @@ export const FlowchartGenerator = ({ className }: FlowchartGeneratorProps) => {
             onConnect={onConnect}
           />
         ) : (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            color: '#6c757d',
-            fontSize: '16px',
-          }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+              color: '#6c757d',
+              fontSize: '16px',
+            }}
+          >
             コードを入力してフローチャートを生成してください
           </div>
         )}
