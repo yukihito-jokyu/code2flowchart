@@ -92,7 +92,8 @@ node.py - ノード関連スキーマ集
 **フィールド**:
 - `source: int` - ソースノードID
 - `target: int` - ターゲットノードID
-**特徴**: ノード間の関係性を表現
+- `source_handle: str` - ソースの種類（条件分岐の結果など）
+**特徴**: ノード間の関係性を表現、条件分岐の真偽値情報を含む
 
 ### 9. FlowchartNodeCreate
 **用途**: フローチャート生成時のノード作成
@@ -143,11 +144,6 @@ node.py - ノード関連スキーマ集
 
 ## ドキュメント更新履歴
 
-- 2025-01-15: 初版作成
-  - NodeType enumの追加（for/while分割形式）
-  - 基本スキーマ（NodeBase, NodeCreate, NodeUpdate, NodeResponse）の作成
-  - リスト・削除レスポンススキーマの作成
-- 2025-07-29: フローチャート生成機能追加
-  - EdgeCreate, FlowchartNodeCreate スキーマの追加
-  - FlowchartGenerateRequest, FlowchartGenerateResponse スキーマの追加
-  - フローチャート生成サービス関連の依存関係更新
+- 2025-07-31: フローチャート生成機能の実装内容を最新状態に更新
+  - EdgeCreateスキーマにsource_handleフィールドを追加
+  - AI生成フローチャートに対応した詳細な説明を更新

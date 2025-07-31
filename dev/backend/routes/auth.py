@@ -94,5 +94,3 @@ def callback(request: Request, db: Session = Depends(get_db)):
 
     # フロントエンドに処理を返してダッシュボードへ画面遷移させる。
     return RedirectResponse(url=redirect_url)
-
-

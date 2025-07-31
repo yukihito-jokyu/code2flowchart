@@ -43,6 +43,7 @@ export interface FlowchartNodeResponse {
 export interface FlowchartEdgeResponse {
   source: number;
   target: number;
+  source_handle: string;
 }
 
 export interface FlowchartGenerateResponse {

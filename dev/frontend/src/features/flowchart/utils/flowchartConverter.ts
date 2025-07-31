@@ -38,7 +38,11 @@ export const convertApiResponseToFlowchart = (
     id: `e${edge.source}-${edge.target}`,
     source: edge.source.toString(),
     target: edge.target.toString(),
-    type: 'smoothstep',
+    ...(edge.source_handle.toString() !== 'None' && {
+      sourceHandle: edge.source_handle.toString(),
+    }),
+    type: 'step',
+    animated: true,
   }));
 
   return { nodes, edges };
