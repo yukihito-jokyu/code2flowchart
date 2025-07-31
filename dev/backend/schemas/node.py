@@ -66,6 +66,7 @@ class NodeDeleteResponse(BaseModel):
 class EdgeCreate(BaseModel):
     source: int = Field(..., description="ソースノードID")
     target: int = Field(..., description="ターゲットノードID")
+    source_handle: str = Field(..., description="ソースの種類")
 
 
 class FlowchartNodeCreate(BaseModel):
@@ -83,5 +84,7 @@ class FlowchartGenerateRequest(BaseModel):
 
 
 class FlowchartGenerateResponse(BaseModel):
-    nodes: list[FlowchartNodeCreate] = Field(..., description="フローチャートノードリスト")
+    nodes: list[FlowchartNodeCreate] = Field(
+        ..., description="フローチャートノードリスト"
+    )
     edges: list[EdgeCreate] = Field(..., description="フローチャートエッジリスト")
