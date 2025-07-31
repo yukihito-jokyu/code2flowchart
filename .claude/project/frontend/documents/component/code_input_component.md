@@ -18,6 +18,10 @@ dev/frontend/src/features/projectCode/components/CodeInput/index.ts
 
 - 依存関係にあるファイル
   - @/hooks/redux (Redux hooks)
+  - @/hooks/useNotification (通知機能)
+  - @/features/flowchart/api (フローチャート生成API)
+  - @/features/flowchart/utils (フローチャート変換ユーティリティ)
+  - @/features/flowchart/types (フローチャート型定義)
   - ../../stores/selectors (Redux selectors)
   - ../../stores/slice (Redux actions)
   - ../../types/projectCode (TypeScript型定義)
@@ -33,6 +37,9 @@ dev/frontend/src/features/projectCode/components/CodeInput/index.ts
   - onToggle: () => void
     - 説明: 表示/非表示を切り替えるコールバック関数
     - 必須: ○
+  - onFlowchartGenerated?: (nodes: FlowchartNode[], edges: FlowchartEdge[]) => void
+    - 説明: フローチャート生成完了時のコールバック関数
+    - 必須: ×（オプション）
 
 # 主要な機能
 
@@ -59,6 +66,15 @@ dev/frontend/src/features/projectCode/components/CodeInput/index.ts
 - **保守性**: projectCode機能に関連するすべてのコンポーネントが1箇所に集約
 - **再利用性**: feature内でのコンポーネント再利用が容易
 
+## フローチャート生成機能（Issue #74で実装完了）
+- **handleGenerateFlowchart関数**: コード内容からフローチャートを自動生成
+- **API連携**: `/api/flowchart/generate`エンドポイントとの通信
+- **エラーハンドリング**: 生成失敗時の適切なエラー表示
+- **ローディング状態**: 生成中の視覚的フィードバック（isGeneratingFlowchart）
+- **コールバック統合**: 生成完了時にonFlowchartGeneratedでフローチャートページに結果を送信
+- **自動モーダル閉じ**: 生成成功時に自動的にモーダルを閉じる
+- **通知機能**: 成功・失敗の通知メッセージ表示
+
 ## フューチャー機能
-- フローチャート生成機能（TODO: 実装予定）
 - feature内でのカスタムフック抽象化
+- より多くのプログラミング言語への対応

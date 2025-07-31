@@ -400,6 +400,16 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
     }
   }, [projectId, setNodes, setEdges]);
 
+  const setFlowchartData = useCallback(
+    (newNodes: FlowchartNode[], newEdges: FlowchartEdge[]) => {
+      setNodesState(newNodes);
+      setEdgesState(newEdges);
+      setNodes(newNodes);
+      setEdges(newEdges);
+    },
+    [setNodes, setEdges]
+  );
+
   return {
     nodes,
     edges,
@@ -416,5 +426,6 @@ export const useFlowchart = ({ projectId, initialData }: UseFlowchartProps) => {
     saveFlowchart,
     loadFlowchart,
     setSelectedNodeId,
+    setFlowchartData,
   };
 };

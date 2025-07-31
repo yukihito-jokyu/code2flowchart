@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import { flowchartApi } from '@/features/flowchart/api';
+import { convertApiResponseToFlowchart } from '@/features/flowchart/utils';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useNotification } from '@/hooks/useNotification';
 
 import {
   selectProjectCodes,
@@ -20,13 +23,21 @@ import { ProjectCode, ProjectCodeCreate, ProjectCodeUpdate } from '../../types/p
 
 import styles from './CodeInput.module.css';
 
+import type { FlowchartNode, FlowchartEdge } from '@/features/flowchart/types';
+
 interface CodeInputProps {
   projectUuid: string;
   isVisible: boolean;
   onToggle: () => void;
+  onFlowchartGenerated?: (nodes: FlowchartNode[], edges: FlowchartEdge[]) => void;
 }
 
-export const CodeInput: React.FC<CodeInputProps> = ({ projectUuid, isVisible, onToggle }) => {
+export const CodeInput: React.FC<CodeInputProps> = ({
+  projectUuid,
+  isVisible,
+  onToggle,
+  onFlowchartGenerated,
+}) => {
   const dispatch = useAppDispatch();
   const codes = useAppSelector(selectProjectCodes);
   const currentCode = useAppSelector(selectCurrentCode);
@@ -40,6 +51,8 @@ export const CodeInput: React.FC<CodeInputProps> = ({ projectUuid, isVisible, on
     description: '',
   });
   const [editingCodeUuid, setEditingCodeUuid] = useState<string | null>(null);
+  const [isGeneratingFlowchart, setIsGeneratingFlowchart] = useState(false);
+  const { showNotification } = useNotification();
 
   useEffect(() => {
     if (projectUuid) {
@@ -118,9 +131,35 @@ export const CodeInput: React.FC<CodeInputProps> = ({ projectUuid, isVisible, on
     dispatch(setCurrentCode(code));
   };
 
-  const handleGenerateFlowchart = () => {
-    // TODO: フローチャート生成機能の実装
-    console.log('フローチャート生成機能は今後実装予定です');
+  const handleGenerateFlowchart = async () => {
+    if (!formData.code_content.trim()) {
+      showNotification('error', 'エラー', 'コードを入力してください');
+      return;
+    }
+
+    setIsGeneratingFlowchart(true);
+
+    try {
+      const response = await flowchartApi.generateFlowchart({
+        code_content: formData.code_content,
+        language: formData.language,
+      });
+
+      const { nodes, edges } = convertApiResponseToFlowchart(response);
+
+      if (onFlowchartGenerated) {
+        onFlowchartGenerated(nodes, edges);
+      }
+
+      showNotification('success', '成功', 'フローチャートが生成されました');
+      onToggle(); // モーダルを閉じる
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'フローチャート生成に失敗しました';
+      showNotification('error', 'エラー', errorMessage);
+    } finally {
+      setIsGeneratingFlowchart(false);
+    }
   };
 
   if (!isVisible) return null;
@@ -211,9 +250,10 @@ export const CodeInput: React.FC<CodeInputProps> = ({ projectUuid, isVisible, on
             </button>
             <button
               onClick={handleGenerateFlowchart}
+              disabled={isGeneratingFlowchart || !formData.code_content.trim()}
               className={`${styles.button} ${styles.generateButton}`}
             >
-              フローチャート生成
+              {isGeneratingFlowchart ? 'フローチャート生成中...' : 'フローチャート生成'}
             </button>
           </div>
         </div>

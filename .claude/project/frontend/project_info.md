@@ -148,6 +148,8 @@ React 19 + TypeScript + Vite を使用したモダンなフロントエンドプ
 
 - Project Code API
   - `.claude/project/frontend/documents/api/project_code_api.md`
+- Flowchart API
+  - `.claude/project/frontend/documents/api/flowchart_api.md`
 
 ### その他
 

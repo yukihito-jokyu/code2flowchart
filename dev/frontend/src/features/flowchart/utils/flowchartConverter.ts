@@ -1,17 +1,21 @@
-import type { FlowchartGenerateResponse, FlowchartNodeResponse, FlowchartEdgeResponse } from '../api';
+import type {
+  FlowchartGenerateResponse,
+  FlowchartNodeResponse,
+  FlowchartEdgeResponse,
+} from '../api';
 import type { FlowchartNode, FlowchartEdge, FlowchartNodeType } from '../types';
 
 const mapNodeTypeFromBackend = (backendType: string): FlowchartNodeType => {
   const typeMapping: Record<string, FlowchartNodeType> = {
-    'if': 'if',
-    'for_start': 'forStart',
-    'for_end': 'forEnd',
-    'while_start': 'whileStart',
-    'while_end': 'whileEnd',
-    'unknown': 'unknown',
-    'normal': 'normal',
+    if: 'if',
+    for_start: 'forStart',
+    for_end: 'forEnd',
+    while_start: 'whileStart',
+    while_end: 'whileEnd',
+    unknown: 'unknown',
+    normal: 'normal',
   };
-  
+
   return typeMapping[backendType] || 'normal';
 };
 

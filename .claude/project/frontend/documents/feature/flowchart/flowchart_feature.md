@@ -65,6 +65,7 @@ src/features/flowchart/
   - `useFlowchart`: フローチャートの状態管理と操作機能を提供
     - **Props**: `projectId` (プロジェクトID), `initialData` (初期データ)
     - **戻り値**: ノード・エッジ操作、保存・読み込み、状態管理の各種関数と状態
+    - **Issue #74追加機能**: `setFlowchartData` - 外部からフローチャートデータを直接設定
 
 - **型定義**:
   - `FlowchartNodeType`: ノードの種類（'if' | 'whileStart' | 'whileEnd' | 'forStart' | 'forEnd' | 'unknown' | 'normal'）
@@ -103,6 +104,10 @@ src/features/flowchart/
     - `selectedNodeId`: 選択中のノードID
     - `isLoading`: 保存・読み込み処理中の状態
     - `error`: エラー状態の管理
+  - **Issue #74追加機能**: 
+    - `setFlowchartData`: 外部からフローチャートデータ（ノード・エッジ）を直接設定
+    - CodeInputコンポーネントからのフローチャート生成結果を受信して即座に反映
+    - APIレスポンスからの変換済みデータを効率的に設定
   - **UI機能**: ミニマップ、コントロールパネル、背景グリッド
   - **開発支援機能**: 
     - DevToolsコンポーネントによる開発時のデバッグ支援
